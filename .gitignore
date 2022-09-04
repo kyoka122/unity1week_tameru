@@ -59,6 +59,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Rider Settings
+.idea
+*.DotSettings
 
 # Resources
 [Aa]ssets/Tameru-Assets
