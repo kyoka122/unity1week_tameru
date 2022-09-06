@@ -1,7 +1,6 @@
-﻿using System;
-using Tameru.Entity;
+﻿using Tameru.Entity;
 using Tameru.Logic;
-using Tameru.Parameter;
+using Tameru.Struct;
 using Tameru.View;
 using UniRx;
 using UniRx.Triggers;
@@ -13,16 +12,16 @@ namespace Tameru.Installer
     {
         [SerializeField] private ChargeView chargeView;
         [SerializeField] private PlayerView playerView;
-        [SerializeField] private PlayerParameterSerializer playerParameterSerializer;
+        [SerializeField] private PlayerParameter playerParameter;
         
         private void Awake()
         {
             var chargeEntity = new ChargeEntity();
             var chargeLogic = new ChargeLogic(chargeEntity, chargeView);
-            var playerEntity = new PlayerEntity();
+            var playerEntity = new PlayerEntity(playerParameter);
             
             
-            var playerLogic = new PlayerLogic(chargeEntity,playerEntity,playerView,playerParameterSerializer);
+            var playerLogic = new PlayerLogic(chargeEntity,playerEntity,playerView,playerParameter);
 
             this.UpdateAsObservable()
                 .Subscribe(_ =>

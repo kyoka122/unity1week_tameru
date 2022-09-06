@@ -1,5 +1,5 @@
 ﻿using Tameru.Entity;
-using Tameru.Parameter;
+using Tameru.Struct;
 using Tameru.View;
 using UniRx;
 using UnityEngine;
@@ -11,15 +11,16 @@ namespace Tameru.Logic
         private readonly ChargeEntity _chargeEntity;
         private readonly PlayerEntity _playerEntity;
         private readonly PlayerView _playerView;
-        private PlayerParameterSerializer _playerParameter;
+        private PlayerParameter _playerParameter;
 
-        public PlayerLogic(ChargeEntity chargeEntity,PlayerEntity playerEntity,PlayerView playerView,PlayerParameterSerializer playerParameterSerializer)
+        public PlayerLogic(ChargeEntity chargeEntity,PlayerEntity playerEntity,PlayerView playerView,PlayerParameter playerParameter)
         {
             _chargeEntity = chargeEntity;
             _playerEntity = playerEntity;
             _playerView = playerView;
-            _playerParameter = playerParameterSerializer;
-            
+            _playerParameter = playerParameter;
+
+            _playerEntity.ChangeSpeedRate(MoveMode.Walk);
             RegisterReactiveProperty();
         }
         
@@ -33,8 +34,13 @@ namespace Tameru.Logic
                 .Subscribe(_playerView.AnimateMove)
                 .AddTo(_playerView);
 
-            _playerParameter.PlayerParameter
-                .Subscribe(_playerEntity.ChangeWalkSpeedParameter);
+            _playerParameter
+                .ObserveEveryValueChanged(x => x.walkSpeed)
+                .Subscribe(_playerEntity.SetWalkSpeedParameter);
+            
+            _playerParameter
+                .ObserveEveryValueChanged(x => x.slowWalkSpeed)
+                .Subscribe(_playerEntity.SetSlowWalkSpeedParameter);
         }
         
         public void Move()
@@ -47,10 +53,13 @@ namespace Tameru.Logic
 
         public void Charge()
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Mouse0))
             {
                 _chargeEntity.AddDefault();
+                _playerEntity.ChangeSpeedRate(MoveMode.SlowWalk);
+                return;
             }
+            _playerEntity.ChangeSpeedRate(MoveMode.Walk);
         }
     }
 }
