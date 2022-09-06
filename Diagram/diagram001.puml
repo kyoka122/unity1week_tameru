@@ -1,0 +1,37 @@
+@startuml
+
+namespace Entity {
+'  単一データとそのロジック
+  class ChargeEntity{
+'    チャージ量の管理
+    int value
+    void Add(int addValue)
+    void Consume()
+  }
+}
+
+namespace Logic {
+'    EntityとViewの橋渡し
+  class ChargeLogic{
+'    MV(R)PのPresenter
+  }
+  
+  class PlayerLogic{
+'    入力よる何がし
+    void Move()
+    void Charge()
+  }
+}
+
+namespace View {
+  class ChargeView{
+'  View
+    void Render(int value)
+  }
+}
+
+Logic.ChargeLogic-->Entity.ChargeEntity
+Logic.ChargeLogic-->View.ChargeView
+Logic.PlayerLogic-->Entity.ChargeEntity
+
+@enduml
