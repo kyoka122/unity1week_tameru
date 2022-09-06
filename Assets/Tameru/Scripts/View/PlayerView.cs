@@ -16,8 +16,8 @@ namespace Tameru.View
 
         public void AnimateMove(Vector3 animationSpeed)
         {
-            animator.SetFloat(AnimationParameterStrings.FrontMove, -animationSpeed.y); 
-            animator.SetFloat(AnimationParameterStrings.RightMove,animationSpeed.x);   
+            animator.SetFloat(AnimationParameterStrings.FrontMove, animationSpeed.y);
+            animator.SetFloat(AnimationParameterStrings.RightMove, animationSpeed.x);
         }
 
         public void OnCollisionEnter(Collision other)
