@@ -2,7 +2,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace Tameru.SerializeParameters
+namespace Tameru.Parameter
 {
     public class PlayerParameterSerializer:MonoBehaviour
     {

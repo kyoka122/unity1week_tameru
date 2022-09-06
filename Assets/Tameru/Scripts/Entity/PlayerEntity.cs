@@ -1,6 +1,6 @@
 ﻿using System;
 using Tameru.Logic;
-using Tameru.SerializeParameters;
+using Tameru.Parameter;
 using Tameru.Struct;
 using UniRx;
 using UnityEngine;

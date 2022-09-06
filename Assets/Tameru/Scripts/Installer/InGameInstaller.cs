@@ -1,7 +1,7 @@
 ﻿using System;
 using Tameru.Entity;
 using Tameru.Logic;
-using Tameru.SerializeParameters;
+using Tameru.Parameter;
 using Tameru.View;
 using UniRx;
 using UniRx.Triggers;

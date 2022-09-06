@@ -1,5 +1,5 @@
 ﻿using Tameru.Entity;
-using Tameru.SerializeParameters;
+using Tameru.Parameter;
 using Tameru.View;
 using UniRx;
 using UnityEngine;
