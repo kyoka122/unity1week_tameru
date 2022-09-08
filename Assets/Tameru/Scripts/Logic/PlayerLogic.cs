@@ -47,11 +47,11 @@ namespace Tameru.Logic
         {
             if (InputKeyData.IsCharging||InputKeyData.CanUseMagic)
             {
-                _playerMoveEntity.SetMoveMode(MoveMode.Walk);
+                _playerMoveEntity.SetMoveMode(MoveMode.SlowWalk);
             }
             else
             {
-                _playerMoveEntity.SetMoveMode(MoveMode.SlowWalk);
+                _playerMoveEntity.SetMoveMode(MoveMode.Walk);
             }
             UpdateMoveSpeedParameters();
         }
