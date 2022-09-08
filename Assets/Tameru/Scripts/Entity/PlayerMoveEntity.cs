@@ -13,17 +13,17 @@ namespace Tameru.Entity
     
     public class PlayerMoveEntity
     {
-        public Vector3ReactiveProperty currentMoveSpeed => _currentMoveSpeed;
-        public Vector3ReactiveProperty currentMoveAnimationSpeed => _currentMoveAnimationSpeed;
+        public IReadOnlyReactiveProperty<Vector3> currentMoveSpeed => _currentMoveSpeed;
+        public IReadOnlyReactiveProperty<Vector3> currentMoveAnimationSpeed => _currentMoveAnimationSpeed;
         
-        private readonly Vector3ReactiveProperty _currentMoveSpeed;
-        private readonly Vector3ReactiveProperty _currentMoveAnimationSpeed;
-
         public MoveMode currentMoveMode { get; private set; }
 
         public float FreezeSpeedRate { get; } = 0;
         public float walkSpeedRate{ get; private set; }
         public float slowWalkSpeedRate{ get; private set; }
+        
+        private readonly Vector3ReactiveProperty _currentMoveSpeed;
+        private readonly Vector3ReactiveProperty _currentMoveAnimationSpeed;
         
         public PlayerMoveEntity(PlayerParameter playerParameter)
         {

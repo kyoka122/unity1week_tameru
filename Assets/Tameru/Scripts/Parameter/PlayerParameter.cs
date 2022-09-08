@@ -2,11 +2,11 @@
 
 namespace Tameru.Struct
 {
-    [CreateAssetMenu(fileName = "PlayerParameter", menuName = "ScriptableObjects", order = 1)]
+    [CreateAssetMenu(fileName = "PlayerParameter", menuName = "ScriptableObjects/PlayerParameter", order = 1)]
     public class PlayerParameter:ScriptableObject
     {
-        public float slowWalkSpeed;
-        public float walkSpeed;
+        [SerializeField] private float slowWalkSpeed;
+        [SerializeField] private float walkSpeed;
         
         public float SlowWalkSpeed=>slowWalkSpeed;
         public float WalkSpeed=>walkSpeed;

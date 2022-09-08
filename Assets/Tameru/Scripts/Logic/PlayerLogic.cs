@@ -1,4 +1,5 @@
 ﻿using System;
+using Tameru.Application;
 using Tameru.Entity;
 using Tameru.Struct;
 using Tameru.View;
@@ -9,14 +10,12 @@ namespace Tameru.Logic
 {
     public class PlayerLogic
     {
-        private readonly ChargeEntity _chargeEntity;
         private readonly PlayerMoveEntity _playerMoveEntity;
         private readonly PlayerView _playerView;
         private readonly PlayerParameter _playerParameter;
 
-        public PlayerLogic(ChargeEntity chargeEntity,PlayerMoveEntity playerMoveEntity,PlayerView playerView,PlayerParameter playerParameter)
+        public PlayerLogic(PlayerMoveEntity playerMoveEntity,PlayerView playerView,PlayerParameter playerParameter)
         {
-            _chargeEntity = chargeEntity;
             _playerMoveEntity = playerMoveEntity;
             _playerView = playerView;
             _playerParameter = playerParameter;
@@ -36,25 +35,34 @@ namespace Tameru.Logic
                 .AddTo(_playerView);
 
             _playerParameter
-                .ObserveEveryValueChanged(x => x.walkSpeed)
+                .ObserveEveryValueChanged(x => x.WalkSpeed)
                 .Subscribe(_playerMoveEntity.SetWalkSpeedParameter);
             
             _playerParameter
-                .ObserveEveryValueChanged(x => x.slowWalkSpeed)
+                .ObserveEveryValueChanged(x => x.SlowWalkSpeed)
                 .Subscribe(_playerMoveEntity.SetSlowWalkSpeedParameter);
         }
         
         public void Move()
         {
-            UpdateMoveSpeedParameters(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+            if (InputKeyData.IsCharging||InputKeyData.CanUseMagic)
+            {
+                _playerMoveEntity.SetMoveMode(MoveMode.Walk);
+            }
+            else
+            {
+                _playerMoveEntity.SetMoveMode(MoveMode.SlowWalk);
+            }
+            UpdateMoveSpeedParameters();
         }
-        
+
         //MEMO: キーの入力量によるパラメータ変化
-        private void UpdateMoveSpeedParameters(float verticalInputValue,float horizontalInputValue)
+        private void UpdateMoveSpeedParameters()
         {
-            Vector3 inputValue= new Vector3(horizontalInputValue,  verticalInputValue,0);
-            
-            var newMoveAnimationSpeed = inputValue / (int) MoveMode.Walk * (int) _playerMoveEntity.currentMoveMode;
+            Vector3 inputValue= new Vector3(InputKeyData.HorizontalMoveValue, InputKeyData.VerticalMoveValue,0);
+
+            var newMoveAnimationSpeed = inputValue / Enum.GetValues(typeof(MoveMode)).Length *
+                                        (int) _playerMoveEntity.currentMoveMode;
             _playerMoveEntity.SetAnimationSpeed(newMoveAnimationSpeed);
             
             var newMoveSpeedRate=GetMoveSpeedRate(_playerMoveEntity.currentMoveMode);
@@ -72,17 +80,6 @@ namespace Tameru.Logic
                 MoveMode.Walk => _playerMoveEntity.walkSpeedRate,
                 _ => throw new ArgumentOutOfRangeException(nameof(moveMode), moveMode, null)
             };
-        }
-
-        public void Charge()
-        {
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                _chargeEntity.AddDefault();
-                _playerMoveEntity.SetMoveMode(MoveMode.SlowWalk);
-                return;
-            }
-            _playerMoveEntity.SetMoveMode(MoveMode.Walk);
         }
     }
 }
