@@ -22,20 +22,8 @@ namespace Tameru.Logic
             _playerParameter = playerParameter;
 
             _playerMoveEntity.SetMoveMode(MoveMode.Walk);
-            RegisterReactiveProperty();
         }
-        
-        private void RegisterReactiveProperty()
-        {
-            _playerMoveEntity.currentMoveSpeed
-                .Subscribe( _playerView.Move)
-                .AddTo(_playerView);
-            
-            _playerMoveEntity.currentMoveAnimationSpeed
-                .Subscribe(_playerView.AnimateMove)
-                .AddTo(_playerView);
-        }
-        
+
         public void Move()
         {
             UpdateMoveSpeedParameters(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
@@ -44,14 +32,16 @@ namespace Tameru.Logic
         //MEMO: キーの入力量によるパラメータ変化
         private void UpdateMoveSpeedParameters(float verticalInputValue,float horizontalInputValue)
         {
-            Vector3 inputValue= new Vector3(horizontalInputValue,  verticalInputValue,0);
-            Vector3 normalizedValue = inputValue.normalized;
-            var newMoveAnimationSpeed = normalizedValue / (int) MoveMode.Walk * (int) _playerMoveEntity.currentMoveMode;
-            _playerMoveEntity.SetAnimationSpeed(newMoveAnimationSpeed);
+            Vector3 inputVec= new Vector3(horizontalInputValue,  verticalInputValue,0);
+            Vector3 normalizedVec = inputVec.normalized;
+            _playerMoveEntity.SetMoveVec(normalizedVec);
+            
+            var newMoveAnimationSpeed = normalizedVec / (int) MoveMode.Walk * (int) _playerMoveEntity.currentMoveMode;
+            _playerView.AnimateMove(newMoveAnimationSpeed);
             
             var newMoveSpeedRate=GetMoveSpeedRate(_playerMoveEntity.currentMoveMode);
-            var newMoveSpeed = normalizedValue * newMoveSpeedRate;
-            _playerMoveEntity.SetMoveSpeed(newMoveSpeed);
+            var newMoveSpeed = normalizedVec * newMoveSpeedRate;
+            _playerView.Move(newMoveSpeed);
         }
 
         //MEMO: チャージ中にキャラの移動スピードが切り替わるため、enumを用いて区別する

@@ -13,38 +13,25 @@ namespace Tameru.Entity
     
     public class PlayerMoveEntity
     {
-        public Vector3ReactiveProperty currentMoveSpeed => _currentMoveSpeed;
-        public Vector3ReactiveProperty currentMoveAnimationSpeed => _currentMoveAnimationSpeed;
-        
-        private readonly Vector3ReactiveProperty _currentMoveSpeed;
-        private readonly Vector3ReactiveProperty _currentMoveAnimationSpeed;
+        public Vector3ReactiveProperty currentMoveVec => _currentMoveVec;
+    
+        private readonly Vector3ReactiveProperty _currentMoveVec;
+    
 
         public MoveMode currentMoveMode { get; private set; }
 
         public float FreezeSpeedRate { get; } = 0;
         
-        public PlayerMoveEntity()
-        {
-            _currentMoveSpeed = new Vector3ReactiveProperty(Vector3.zero);
-            _currentMoveAnimationSpeed = new Vector3ReactiveProperty(Vector3.zero);
-        }
-
         //MEMO: チャージ中かどうかでキャラの移動スピードが切り替わるため、enumを用いて区別する
         public void SetMoveMode(MoveMode newMoveMode)
         {
             currentMoveMode = newMoveMode;
         }
         
-        public void SetMoveSpeed(Vector3 newCurrentMoveSpeed)
+        public void SetMoveVec(Vector3 newMoveVec)
         {
-            _currentMoveSpeed.Value = newCurrentMoveSpeed;
+            _currentMoveVec.Value = newMoveVec;
         }
-
-        public void SetAnimationSpeed(Vector3 newMoveAnimationSpeed)
-        {
-            _currentMoveAnimationSpeed.Value = newMoveAnimationSpeed;
-        }
-
         
         //MEMO: Animator側で「ゆっくり歩く」と「歩く」を変更してくれているので必要なし
         /*public void ChangeMoveAnimation(MoveMode moveMode)
