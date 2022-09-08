@@ -32,7 +32,8 @@ namespace Tameru.Logic
             {
                 TryUpdateMagic(currentValue);
                 _playerChargeEntity.UpdateCurrentChargeValue();
-            });
+            }).AddTo(_playerChargeEntity);
+            
             _playerChargeEntity.currentMagic
                 .Subscribe(magic =>
                 {
