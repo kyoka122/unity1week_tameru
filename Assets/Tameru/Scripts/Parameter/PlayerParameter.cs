@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Tameru.Struct
+namespace Tameru.Application
 {
     [CreateAssetMenu(fileName = "PlayerParameter", menuName = "ScriptableObjects", order = 1)]
     public class PlayerParameter:ScriptableObject

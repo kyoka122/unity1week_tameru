@@ -1,6 +1,6 @@
 ﻿using System;
+using Tameru.Application;
 using Tameru.Entity;
-using Tameru.Struct;
 using Tameru.View;
 using UniRx;
 using UnityEngine;

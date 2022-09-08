@@ -1,6 +1,6 @@
-﻿using Tameru.Entity;
+﻿using Tameru.Application;
+using Tameru.Entity;
 using Tameru.Logic;
-using Tameru.Struct;
 using Tameru.View;
 using UniRx;
 using UniRx.Triggers;

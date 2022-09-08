@@ -1,4 +1,4 @@
-﻿using Tameru.Struct;
+﻿using Tameru.Application;
 using UniRx;
 using UnityEngine;
 
