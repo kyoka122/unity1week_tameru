@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Tameru.Entity;
@@ -8,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Tameru.Logic
 {
-    public sealed class SceneLogic : IDisposable
+    public sealed class SceneLogic
     {
         private readonly SceneEntity _sceneEntity;
         private readonly TransitionView _transitionView;
@@ -18,7 +17,10 @@ namespace Tameru.Logic
         {
             _sceneEntity = sceneEntity;
             _transitionView = transitionView;
+
             _tokenSource = new CancellationTokenSource();
+            _tokenSource
+                .AddTo(_transitionView);
 
             _sceneEntity.Load()
                 .Subscribe(x => FadeLoadAsync(x, _tokenSource.Token).Forget())
@@ -32,12 +34,6 @@ namespace Tameru.Logic
             await SceneManager.LoadSceneAsync(sceneName.ToString());
 
             await _transitionView.HideAsync(token);
-        }
-
-        public void Dispose()
-        {
-            _tokenSource?.Cancel();
-            _tokenSource?.Dispose();
         }
     }
 }
