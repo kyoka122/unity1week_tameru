@@ -1,7 +1,7 @@
-﻿using Tameru.Entity;
+﻿using Tameru.Application;
+using Tameru.Entity;
 using Tameru.Logic;
 using Tameru.Parameter;
-using Tameru.Struct;
 using Tameru.View;
 using UniRx;
 using UniRx.Triggers;
@@ -23,7 +23,7 @@ namespace Tameru.Installer
         {
             var playerChargeEntity = new PlayerChargeEntity(playerMagicParameter.GetNeedChargeParameter());
             var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
-            var playerEntity = new PlayerMoveEntity(playerParameter);
+            var playerEntity = new PlayerMoveEntity();
             var playerLogic = new PlayerLogic(playerEntity,playerView,playerParameter);
             var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMagicView,playerMagicParameter);
 
