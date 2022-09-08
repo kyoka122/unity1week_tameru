@@ -34,14 +34,6 @@ namespace Tameru.Logic
             _playerMoveEntity.currentMoveAnimationSpeed
                 .Subscribe(_playerView.AnimateMove)
                 .AddTo(_playerView);
-
-            _playerParameter
-                .ObserveEveryValueChanged(x => x.walkSpeed)
-                .Subscribe(_playerMoveEntity.SetWalkSpeedParameter);
-            
-            _playerParameter
-                .ObserveEveryValueChanged(x => x.slowWalkSpeed)
-                .Subscribe(_playerMoveEntity.SetSlowWalkSpeedParameter);
         }
         
         public void Move()
@@ -68,8 +60,8 @@ namespace Tameru.Logic
             return moveMode switch
             {
                 MoveMode.Freeze => _playerMoveEntity.FreezeSpeedRate,
-                MoveMode.SlowWalk => _playerMoveEntity.slowWalkSpeedRate,
-                MoveMode.Walk => _playerMoveEntity.walkSpeedRate,
+                MoveMode.SlowWalk => _playerParameter.SlowWalkSpeed,
+                MoveMode.Walk => _playerParameter.WalkSpeed,
                 _ => throw new ArgumentOutOfRangeException(nameof(moveMode), moveMode, null)
             };
         }

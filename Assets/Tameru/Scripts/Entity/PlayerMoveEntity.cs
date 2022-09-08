@@ -22,25 +22,11 @@ namespace Tameru.Entity
         public MoveMode currentMoveMode { get; private set; }
 
         public float FreezeSpeedRate { get; } = 0;
-        public float walkSpeedRate{ get; private set; }
-        public float slowWalkSpeedRate{ get; private set; }
         
-        public PlayerMoveEntity(PlayerParameter playerParameter)
+        public PlayerMoveEntity()
         {
-            walkSpeedRate = playerParameter.WalkSpeed;
-            slowWalkSpeedRate = playerParameter.SlowWalkSpeed;
             _currentMoveSpeed = new Vector3ReactiveProperty(Vector3.zero);
             _currentMoveAnimationSpeed = new Vector3ReactiveProperty(Vector3.zero);
-        }
-        
-        public void SetWalkSpeedParameter(float newWalkSpeed)
-        {
-            walkSpeedRate = newWalkSpeed;
-        }
-        
-        public void SetSlowWalkSpeedParameter(float newSlowWalkSpeed)
-        {
-            slowWalkSpeedRate=newSlowWalkSpeed;
         }
 
         //MEMO: チャージ中かどうかでキャラの移動スピードが切り替わるため、enumを用いて区別する
