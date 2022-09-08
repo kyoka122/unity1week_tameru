@@ -18,7 +18,7 @@ namespace Tameru.Installer
         {
             var chargeEntity = new ChargeEntity();
             var chargeLogic = new ChargeLogic(chargeEntity, chargeView);
-            var playerEntity = new PlayerEntity(playerParameter);
+            var playerEntity = new PlayerMoveEntity(playerParameter);
             
             
             var playerLogic = new PlayerLogic(chargeEntity,playerEntity,playerView,playerParameter);

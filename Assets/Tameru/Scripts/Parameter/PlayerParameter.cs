@@ -1,6 +1,4 @@
-﻿using System;
-using UniRx;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tameru.Struct
 {

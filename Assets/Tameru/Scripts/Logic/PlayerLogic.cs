@@ -1,4 +1,5 @@
-﻿using Tameru.Entity;
+﻿using System;
+using Tameru.Entity;
 using Tameru.Struct;
 using Tameru.View;
 using UniRx;
@@ -9,46 +10,68 @@ namespace Tameru.Logic
     public class PlayerLogic
     {
         private readonly ChargeEntity _chargeEntity;
-        private readonly PlayerEntity _playerEntity;
+        private readonly PlayerMoveEntity _playerMoveEntity;
         private readonly PlayerView _playerView;
-        private PlayerParameter _playerParameter;
+        private readonly PlayerParameter _playerParameter;
 
-        public PlayerLogic(ChargeEntity chargeEntity,PlayerEntity playerEntity,PlayerView playerView,PlayerParameter playerParameter)
+        public PlayerLogic(ChargeEntity chargeEntity,PlayerMoveEntity playerMoveEntity,PlayerView playerView,PlayerParameter playerParameter)
         {
             _chargeEntity = chargeEntity;
-            _playerEntity = playerEntity;
+            _playerMoveEntity = playerMoveEntity;
             _playerView = playerView;
             _playerParameter = playerParameter;
 
-            _playerEntity.ChangeSpeedRate(MoveMode.Walk);
+            _playerMoveEntity.SetMoveMode(MoveMode.Walk);
             RegisterReactiveProperty();
         }
         
         private void RegisterReactiveProperty()
         {
-            _playerEntity.currentMoveSpeed
+            _playerMoveEntity.currentMoveSpeed
                 .Subscribe( _playerView.Move)
                 .AddTo(_playerView);
             
-            _playerEntity.currentMoveAnimationSpeed
+            _playerMoveEntity.currentMoveAnimationSpeed
                 .Subscribe(_playerView.AnimateMove)
                 .AddTo(_playerView);
 
             _playerParameter
                 .ObserveEveryValueChanged(x => x.walkSpeed)
-                .Subscribe(_playerEntity.SetWalkSpeedParameter);
+                .Subscribe(_playerMoveEntity.SetWalkSpeedParameter);
             
             _playerParameter
                 .ObserveEveryValueChanged(x => x.slowWalkSpeed)
-                .Subscribe(_playerEntity.SetSlowWalkSpeedParameter);
+                .Subscribe(_playerMoveEntity.SetSlowWalkSpeedParameter);
         }
         
         public void Move()
         {
-            float verticalInputValue= Input.GetAxis("Vertical");
-            float horizontalInputValue= Input.GetAxis("Horizontal");
+            UpdateMoveSpeedParameters(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+        }
+        
+        //MEMO: キーの入力量によるパラメータ変化
+        private void UpdateMoveSpeedParameters(float verticalInputValue,float horizontalInputValue)
+        {
+            Vector3 inputValue= new Vector3(horizontalInputValue,  verticalInputValue,0);
             
-            _playerEntity.ChangeSpeed(verticalInputValue,horizontalInputValue);
+            var newMoveAnimationSpeed = inputValue / (int) MoveMode.Walk * (int) _playerMoveEntity.currentMoveMode;
+            _playerMoveEntity.SetAnimationSpeed(newMoveAnimationSpeed);
+            
+            var newMoveSpeedRate=GetMoveSpeedRate(_playerMoveEntity.currentMoveMode);
+            var newMoveSpeed = inputValue * newMoveSpeedRate;
+            _playerMoveEntity.SetMoveSpeed(newMoveSpeed);
+        }
+
+        //MEMO: チャージ中にキャラの移動スピードが切り替わるため、enumを用いて区別する
+        private float GetMoveSpeedRate(MoveMode moveMode)
+        {
+            return moveMode switch
+            {
+                MoveMode.Freeze => _playerMoveEntity.FreezeSpeedRate,
+                MoveMode.SlowWalk => _playerMoveEntity.slowWalkSpeedRate,
+                MoveMode.Walk => _playerMoveEntity.walkSpeedRate,
+                _ => throw new ArgumentOutOfRangeException(nameof(moveMode), moveMode, null)
+            };
         }
 
         public void Charge()
@@ -56,10 +79,10 @@ namespace Tameru.Logic
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 _chargeEntity.AddDefault();
-                _playerEntity.ChangeSpeedRate(MoveMode.SlowWalk);
+                _playerMoveEntity.SetMoveMode(MoveMode.SlowWalk);
                 return;
             }
-            _playerEntity.ChangeSpeedRate(MoveMode.Walk);
+            _playerMoveEntity.SetMoveMode(MoveMode.Walk);
         }
     }
 }

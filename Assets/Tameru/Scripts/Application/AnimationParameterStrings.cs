@@ -1,4 +1,4 @@
-﻿namespace Tameru.Utility
+﻿namespace Tameru.Application
 {
     public static class AnimationParameterStrings
     {

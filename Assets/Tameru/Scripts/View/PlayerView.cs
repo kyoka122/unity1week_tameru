@@ -1,5 +1,4 @@
-﻿using System;
-using Tameru.Utility;
+﻿using Tameru.Application;
 using UnityEngine;
 
 namespace Tameru.View
