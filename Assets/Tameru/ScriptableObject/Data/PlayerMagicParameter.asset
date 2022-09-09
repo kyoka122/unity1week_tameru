@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cde8a52dfb48259681cb987328104c, type: 3}
   m_Name: PlayerMagicParameter
   m_EditorClassIdentifier: 
-  magicNeedChargeValue: 000000003200000064000000
+  magicChargeValue: 000000001300000014000000
   magicName:
   - None
   - Weak
