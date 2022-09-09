@@ -6,8 +6,8 @@ namespace Tameru.Logic
 {
     public class ChargeLogic
     {
-        private ChargeEntity _chargeEntity;
-        private ChargeView _chargeView;
+        private readonly ChargeEntity _chargeEntity;
+        private readonly ChargeView _chargeView;
 
         public ChargeLogic(ChargeEntity chargeEntity, ChargeView chargeView)
         {
