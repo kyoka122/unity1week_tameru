@@ -9,34 +9,42 @@ namespace Tameru.Logic
 {
     public class PlayerLogic
     {
-        private readonly ChargeEntity _chargeEntity;
         private readonly PlayerMoveEntity _playerMoveEntity;
         private readonly PlayerView _playerView;
         private readonly PlayerParameter _playerParameter;
 
-        public PlayerLogic(ChargeEntity chargeEntity,PlayerMoveEntity playerMoveEntity,PlayerView playerView,PlayerParameter playerParameter)
+        public PlayerLogic(PlayerMoveEntity playerMoveEntity,PlayerView playerView,PlayerParameter playerParameter)
         {
-            _chargeEntity = chargeEntity;
             _playerMoveEntity = playerMoveEntity;
             _playerView = playerView;
             _playerParameter = playerParameter;
-
             _playerMoveEntity.SetMoveMode(MoveMode.Walk);
         }
+        
 
         public void Move()
         {
-            UpdateMoveSpeedParameters(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+            if (InputKeyData.IsCharging||InputKeyData.CanUseMagic)
+            {
+                _playerMoveEntity.SetMoveMode(MoveMode.SlowWalk);
+            }
+            else
+            {
+                _playerMoveEntity.SetMoveMode(MoveMode.Walk);
+            }
+            UpdateMoveSpeedParameters();
         }
-        
+
         //MEMO: キーの入力量によるパラメータ変化
-        private void UpdateMoveSpeedParameters(float verticalInputValue,float horizontalInputValue)
+        private void UpdateMoveSpeedParameters()
         {
-            Vector3 inputVec= new Vector3(horizontalInputValue,  verticalInputValue,0);
+
+            Vector3 inputVec= new Vector3(InputKeyData.HorizontalMoveValue, InputKeyData.VerticalMoveValue,0);
             Vector3 normalizedVec = inputVec.normalized;
             _playerMoveEntity.SetMoveVec(normalizedVec);
             
-            var newMoveAnimationSpeed = normalizedVec / (int) MoveMode.Walk * (int) _playerMoveEntity.currentMoveMode;
+            var newMoveAnimationSpeed = inputVec / Enum.GetValues(typeof(MoveMode)).Length *
+                                        (int) _playerMoveEntity.currentMoveMode;
             _playerView.AnimateMove(newMoveAnimationSpeed);
             
             var newMoveSpeedRate=GetMoveSpeedRate(_playerMoveEntity.currentMoveMode);
@@ -49,22 +57,11 @@ namespace Tameru.Logic
         {
             return moveMode switch
             {
-                MoveMode.Freeze => _playerMoveEntity.FreezeSpeedRate,
+                MoveMode.Freeze => _playerParameter.FreezeSpeed,
                 MoveMode.SlowWalk => _playerParameter.SlowWalkSpeed,
                 MoveMode.Walk => _playerParameter.WalkSpeed,
                 _ => throw new ArgumentOutOfRangeException(nameof(moveMode), moveMode, null)
             };
-        }
-
-        public void Charge()
-        {
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                _chargeEntity.AddDefault();
-                _playerMoveEntity.SetMoveMode(MoveMode.SlowWalk);
-                return;
-            }
-            _playerMoveEntity.SetMoveMode(MoveMode.Walk);
         }
     }
 }
