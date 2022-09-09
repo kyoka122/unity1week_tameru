@@ -8,7 +8,7 @@ namespace Tameru.View
         [SerializeField] private Text chargeText;
         [SerializeField] private Slider chargeValueSlider;
 
-        public void InitSliderParam(float newMaxValue)
+        public void InitSliderMaxValue(float newMaxValue)
         {
             chargeValueSlider.maxValue = newMaxValue;
         }

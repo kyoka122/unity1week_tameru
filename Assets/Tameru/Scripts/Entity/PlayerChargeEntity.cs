@@ -17,55 +17,44 @@ namespace Tameru.Entity
     public class PlayerChargeEntity
     {
         /// <summary>
-        /// 現在溜めている魔法のチャージ量
+        /// 次出す魔法に向けてチャージしている量
         /// </summary>
-        public IReadOnlyReactiveProperty<float> currentMagicChargingValue =>_currentMagicChargingValue;
+        public IReadOnlyReactiveProperty<float> chargeGaugeValue =>_chargeGaugeValue;
         
         /// <summary>
         /// 合計チャージ量
         /// </summary>
-        public IReadOnlyReactiveProperty<float> currentValue =>_currentValue;
+        public IReadOnlyReactiveProperty<float> chargingValue =>_chargingValue;
         public IReadOnlyReactiveProperty<MagicMode> currentMagic =>_currentMagic;
 
         private const float DefaultChargeValue = 0.1f;
-        public Dictionary<MagicMode, int> needValue { get; private set; }
-        
-        private readonly ReactiveProperty<float> _currentMagicChargingValue;
-        private readonly ReactiveProperty<float> _currentValue;
+        private readonly ReactiveProperty<float> _chargeGaugeValue;
+        private readonly ReactiveProperty<float> _chargingValue;
         private readonly ReactiveProperty<MagicMode> _currentMagic;
-        
-        public PlayerChargeEntity(Dictionary<MagicMode, int> newNeedValue)
-        {
-            _currentMagicChargingValue = new ReactiveProperty<float>(0);
-            _currentValue = new ReactiveProperty<float>(0);
-            _currentMagic = new ReactiveProperty<MagicMode>();
-            needValue = newNeedValue;
-        }
-        
-        public void UpdateNeedChargeValue(MagicMode mode,int newValue)
-        {
-            needValue[mode] = newValue;
-        }
 
-        public void UpdateCurrentMagic(MagicMode newMagicMode)
+        private float _maxChargeValue = 0;
+        public PlayerChargeEntity()
+        {
+            _chargeGaugeValue = new ReactiveProperty<float>(0);
+            _chargingValue = new ReactiveProperty<float>(0);
+            _currentMagic = new ReactiveProperty<MagicMode>();
+        }
+        
+        public void SetCurrentMagic(MagicMode newMagicMode)
         {
             _currentMagic.Value = newMagicMode;
         }
         
-        public void UpdateCurrentChargeValue()
+        public void SetChargeGaugeValue(float currentMagicChargeValue)
         {
-            //MEMO: 最大魔法のチャージ量がMaxになった時、スライダーを満タンの状態で維持するために-1
-            var chargingValue = Mathf.Min((int) _currentMagic.Value, EnumHelper.MaxIndex<MagicMode>()-1);
-            _currentMagicChargingValue.Value = _currentValue.Value - GetNeedValue((MagicMode) chargingValue);
+            _chargeGaugeValue.Value = _chargingValue.Value - currentMagicChargeValue;
         }
 
-        public float GetNeedValue(MagicMode magicMode)
+        public void SetMaxChargeValue(float maxValue)
         {
-            return needValue
-                .Where(x=>x.Key<=magicMode)
-                .Sum(x=>x.Value);
+            _maxChargeValue = maxValue;
         }
-        
+
         public void AddDefault()
         {
             Add(DefaultChargeValue);
@@ -73,18 +62,17 @@ namespace Tameru.Entity
         
         public void Add(float addValue)
         {
-            var maxValue=GetNeedValue((MagicMode) EnumHelper.MaxIndex<MagicMode>());
-            _currentValue.Value = Mathf.Min(_currentValue.Value + addValue,maxValue);
+            _chargingValue.Value = Mathf.Min(_chargingValue.Value + addValue,_maxChargeValue);
         }
 
         public void ConsumeAll()
         {
-            Consume(currentValue.Value);
+            Consume(chargingValue.Value);
         }
         
         public void Consume(float consumeValue)
         {
-            _currentValue.Value = Mathf.Max(_currentValue.Value - consumeValue,0);
+            _chargingValue.Value = Mathf.Max(_chargingValue.Value - consumeValue,0);
         }
 
     }

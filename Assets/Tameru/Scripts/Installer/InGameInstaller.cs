@@ -21,9 +21,9 @@ namespace Tameru.Installer
         
         private void Awake()
         {
-            var playerChargeEntity = new PlayerChargeEntity(playerMagicParameter.GetNeedChargeParameter());
-            var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
+            var playerChargeEntity = new PlayerChargeEntity();
             var playerEntity = new PlayerMoveEntity();
+            var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
             var playerLogic = new PlayerLogic(playerEntity,playerView,playerParameter);
             var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMagicView,playerMagicParameter);
 

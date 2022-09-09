@@ -22,22 +22,7 @@ namespace Tameru.Logic
 
         private void RegisterReactiveProperty()
         {
-            /*foreach (var pair in _playerMagicParameter.GetNeedChargeParameter())
-            {
-                _playerMagicParameter
-                    .ObserveEveryValueChanged(parameter => parameter.GetNeedChargeParameter()[pair.Key])
-                    .Subscribe(_ =>
-                        _playerChargeEntity.UpdateNeedChargeValue(pair.Key, pair.Value));
-            }*/
-            _playerMagicParameter
-                .ObserveEveryValueChanged(x => x.GetNeedChargeParameter()[MagicMode.Weak])
-                .Subscribe(weakNeedChargeValue =>
-                    _playerChargeEntity.UpdateNeedChargeValue(MagicMode.Weak, weakNeedChargeValue));
-            
-            _playerMagicParameter
-                .ObserveEveryValueChanged(x => x.GetNeedChargeParameter()[MagicMode.Strong])
-                .Subscribe(weakNeedChargeValue =>
-                    _playerChargeEntity.UpdateNeedChargeValue(MagicMode.Strong, weakNeedChargeValue));
+
         }
 
         public void UpdateUseMagic()
