@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SeParameter - Decision
   m_EditorClassIdentifier: 
   seType: 1
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 3a9e2fedccc1a5c43986c6f417fdba5c, type: 3}

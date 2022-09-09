@@ -47,14 +47,13 @@ namespace Tameru.Logic
                     .Subscribe(_soundEntity.SetSeVolume)
                     .AddTo(_volumeView);
 
-                // TODO: 例外が吐かれてしまうため、SEが設定されたらコメント解除
                 // マウスカーソルを離したタイミングで効果音再生
-                // _volumeView.OnPointerUpBgmSlider()
-                //     .Subscribe(_soundEntity.SetUpPlaySe)
-                //     .AddTo(_volumeView);
-                // _volumeView.OnPointerUpSeSlider()
-                //     .Subscribe(_soundEntity.SetUpPlaySe)
-                //     .AddTo(_volumeView);
+                _volumeView.OnPointerUpBgmSlider()
+                    .Subscribe(_soundEntity.SetUpPlaySe)
+                    .AddTo(_volumeView);
+                _volumeView.OnPointerUpSeSlider()
+                    .Subscribe(_soundEntity.SetUpPlaySe)
+                    .AddTo(_volumeView);
             }
         }
     }

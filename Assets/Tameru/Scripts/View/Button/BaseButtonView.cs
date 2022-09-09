@@ -32,8 +32,7 @@ namespace Tameru.View
                         .DOScale(scale, _animationTime))
                     .SetLink(gameObject);
 
-                // TODO: 例外が吐かれてしまうため、SEが設定されたらコメント解除
-                // action?.Invoke(seType);
+                action?.Invoke(seType);
             };
 
             GetComponent<UIButton>()
