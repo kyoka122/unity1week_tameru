@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SeParameter - CursorOver
   m_EditorClassIdentifier: 
   seType: 3
-  audioClip: {fileID: 8300000, guid: 3a9e2fedccc1a5c43986c6f417fdba5c, type: 3}
+  audioClip: {fileID: 8300000, guid: d8d5546717c4b01449c055a10b5c89fd, type: 3}
