@@ -17,5 +17,15 @@ namespace Tameru.View
         {
             seSource.PlayOneShot(clip);
         }
+
+        public void SetBgmVolume(float value)
+        {
+            bgmSource.volume = value;
+        }
+
+        public void SetSeVolume(float value)
+        {
+            seSource.volume = value;
+        }
     }
 }

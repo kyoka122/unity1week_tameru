@@ -32,6 +32,14 @@ namespace Tameru.Logic
                     _soundView.PlaySe(clip);
                 })
                 .AddTo(_soundView);
+
+            _soundEntity.UpdateBgmVolume()
+                .Subscribe(_soundView.SetBgmVolume)
+                .AddTo(_soundView);
+
+            _soundEntity.UpdateSeVolume()
+                .Subscribe(_soundView.SetSeVolume)
+                .AddTo(_soundView);
         }
     }
 }
