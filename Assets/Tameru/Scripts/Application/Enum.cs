@@ -12,6 +12,7 @@ namespace Tameru
         None,
         Decision,
         Cancel,
+        CursorOver,
     }
 
     public enum BgmType

@@ -559,6 +559,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
+      propertyPath: pushSe
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
       propertyPath: isInitHide
       value: 1
       objectReference: {fileID: 0}
@@ -566,6 +570,10 @@ PrefabInstance:
       propertyPath: canvasGroup
       value: 
       objectReference: {fileID: 553470534}
+    - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
+      propertyPath: cursorOverSe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4994783144967208336, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
       propertyPath: Id.Name
       value: Back
@@ -807,6 +815,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
+      propertyPath: pushSe
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
       propertyPath: isInitHide
       value: 1
       objectReference: {fileID: 0}
@@ -814,6 +826,10 @@ PrefabInstance:
       propertyPath: canvasGroup
       value: 
       objectReference: {fileID: 2063770646}
+    - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
+      propertyPath: cursorOverSe
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4994783144967208336, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
       propertyPath: Id.Name
       value: Credit
@@ -4124,6 +4140,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
+      propertyPath: pushSe
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
       propertyPath: isInitHide
       value: 1
       objectReference: {fileID: 0}
@@ -4131,6 +4151,10 @@ PrefabInstance:
       propertyPath: canvasGroup
       value: 
       objectReference: {fileID: 1276593877}
+    - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
+      propertyPath: cursorOverSe
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4994783144967208336, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
       propertyPath: Id.Name
       value: Option
@@ -4421,7 +4445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdc4011e8f6465f8d21ceebfc592150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seType: 1
+  pushSe: 1
+  cursorOverSe: 0
   isInitHide: 0
   canvasGroup: {fileID: 553470534}
 --- !u!1 &838240285
@@ -7481,6 +7506,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
+      propertyPath: pushSe
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
       propertyPath: isInitHide
       value: 1
       objectReference: {fileID: 0}
@@ -7488,6 +7517,10 @@ PrefabInstance:
       propertyPath: canvasGroup
       value: 
       objectReference: {fileID: 553470534}
+    - target: {fileID: 3090129164717285663, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
+      propertyPath: cursorOverSe
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4994783144967208336, guid: 195de5cd9c051462395e9bba62fc809f, type: 3}
       propertyPath: Id.Name
       value: Back
@@ -9172,7 +9205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0055bf97f05486680ad2e67f866e582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seType: 1
+  pushSe: 1
+  cursorOverSe: 3
   sceneName: 2
 --- !u!1001 &8292033403435176927
 PrefabInstance:

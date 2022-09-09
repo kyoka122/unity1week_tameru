@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Doozy.Runtime.UIManager.Components;
 using EFUK;
+using MPUIKIT;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -11,13 +12,14 @@ namespace Tameru.View
     [RequireComponent(typeof(UIButton))]
     public abstract class BaseButtonView : MonoBehaviour
     {
-        [SerializeField] private SeType seType = default;
+        [SerializeField] private SeType pushSe = default;
+        [SerializeField] private SeType cursorOverSe = default;
 
         protected Action push;
 
         private readonly float _animationTime = 0.1f;
 
-        public void Init(Action<SeType> action)
+        public void Init(Action<SeType> pushed, Action<SeType> cursorOver)
         {
             var rectTransform = transform.ConvertRectTransform();
             var scale = rectTransform.localScale;
@@ -32,12 +34,34 @@ namespace Tameru.View
                         .DOScale(scale, _animationTime))
                     .SetLink(gameObject);
 
-                action?.Invoke(seType);
+                pushed?.Invoke(pushSe);
             };
 
-            GetComponent<UIButton>()
+            var button = GetComponent<UIButton>();
+            button
                 .OnPointerDownAsObservable()
                 .Subscribe(_ => push?.Invoke())
+                .AddTo(this);
+
+            var image = button.GetComponent<MPImage>();
+            button
+                .OnPointerEnterAsObservable()
+                .Where(_ => cursorOverSe != SeType.None)
+                .Subscribe(_ =>
+                {
+                    image.color = Color.yellow;
+                    cursorOver?.Invoke(cursorOverSe);
+                })
+                .AddTo(this);
+
+            var defaultColor = image.color;
+            button
+                .OnPointerExitAsObservable()
+                .Where(_ => cursorOverSe != SeType.None)
+                .Subscribe(_ =>
+                {
+                    image.color = defaultColor;
+                })
                 .AddTo(this);
         }
     }

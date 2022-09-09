@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.58431375, g: 0.882353, b: 0.82745105, a: 1}
+  m_Color: {r: 0.007843138, g: 0.2784314, b: 0.36862746, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -95,9 +95,9 @@ MonoBehaviour:
   m_DrawShape: 3
   m_ImageType: 0
   m_MaterialMode: 0
-  m_StrokeWidth: 2.5
-  m_OutlineWidth: 0
-  m_OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+  m_StrokeWidth: 0
+  m_OutlineWidth: 2.5
+  m_OutlineColor: {r: 0.58431375, g: 0.88235295, b: 0.827451, a: 1}
   m_FalloffDistance: 0
   m_ConstrainRotation: 1
   m_ShapeRotation: 0
@@ -277,7 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdc4011e8f6465f8d21ceebfc592150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seType: 1
+  pushSe: 0
+  cursorOverSe: 0
   isInitHide: 0
   canvasGroup: {fileID: 0}
 --- !u!1001 &3357924185453570435

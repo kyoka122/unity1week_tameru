@@ -22,7 +22,7 @@ namespace Tameru.Logic
 
             foreach (var button in Object.FindObjectsOfType<BaseButtonView>())
             {
-                button.Init(_soundEntity.SetUpPlaySe);
+                button.Init(_soundEntity.SetUpPlaySe, _soundEntity.SetUpPlaySe);
 
                 switch (button)
                 {
