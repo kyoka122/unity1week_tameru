@@ -1,5 +1,6 @@
 using Tameru.Entity;
 using Tameru.Logic;
+using Tameru.Parameter;
 using Tameru.View;
 using UnityEngine;
 
@@ -14,7 +15,11 @@ namespace Tameru.Installer
 
         // 他Logicで利用するためにEntityのみ公開する
         public SceneEntity sceneEntity { get; } = new SceneEntity();
+        public SoundEntity soundEntity { get; } = new SoundEntity();
 
+        [SerializeField] private SoundParameter soundParameter = default;
+
+        [SerializeField] private SoundView soundView = default;
         [SerializeField] private TransitionView transitionView = default;
 
         private void Awake()
@@ -32,6 +37,7 @@ namespace Tameru.Installer
             }
 
             var sceneLogic = new SceneLogic(sceneEntity, transitionView);
+            var soundLogic = new SoundLogic(soundParameter, soundEntity, soundView);
         }
     }
 }

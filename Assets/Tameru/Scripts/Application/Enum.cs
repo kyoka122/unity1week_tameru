@@ -5,4 +5,19 @@ namespace Tameru
         None,
         Main,
     }
+
+    public enum SeType
+    {
+        None,
+        Decision,
+        Cancel,
+    }
+
+    public enum BgmType
+    {
+        None,
+        Top,
+        Main,
+        Result,
+    }
 }
