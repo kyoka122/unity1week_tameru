@@ -3,7 +3,7 @@ using UniRx;
 
 namespace Tameru.Entity
 {
-    public sealed class SoundEntity
+    public sealed class SoundEntity : ISoundEntity
     {
         private readonly Subject<BgmType> _playBgm;
         private readonly Subject<SeType> _playSe;
