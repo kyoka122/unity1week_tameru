@@ -27,7 +27,6 @@ namespace Tameru.Entity
         public IReadOnlyReactiveProperty<float> chargingValue =>_chargingValue;
         public IReadOnlyReactiveProperty<MagicType> currentMagic =>_currentMagic;
 
-        private const float DefaultChargeValue = 0.1f;
         private readonly ReactiveProperty<float> _chargeGaugeValue;
         private readonly ReactiveProperty<float> _chargingValue;
         private readonly ReactiveProperty<MagicType> _currentMagic;
@@ -57,7 +56,7 @@ namespace Tameru.Entity
 
         public void AddDefault()
         {
-            Add(DefaultChargeValue);
+            Add(Time.deltaTime);
         }
         
         public void Add(float addValue)
