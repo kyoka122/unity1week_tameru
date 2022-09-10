@@ -7,7 +7,7 @@ namespace Tameru
         Main,
         Ranking,
     }
-    
+
     public enum SeType
     {
         None,
@@ -23,7 +23,15 @@ namespace Tameru
         Main,
         Result,
     }
-    
+
+    public enum GameState
+    {
+        None,
+        Main,
+        Over,
+        Clear,
+    }
+
     public enum EnemyType
     {
         None,
