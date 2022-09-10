@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcdd898b86524fde92ea97283a916214, type: 3}
+  m_Name: CommonEnemyParameter
+  m_EditorClassIdentifier: 
+  damageInterval: 1
+  enemySpawnerTransform:
+  - {fileID: 3123496285656884722, guid: cb5a968cb3d1f03489df26d5ca74686a, type: 3}

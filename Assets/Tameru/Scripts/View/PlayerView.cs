@@ -1,4 +1,5 @@
-﻿using Tameru.Application;
+﻿using System;
+using Tameru.Application;
 using UnityEngine;
 
 namespace Tameru.View
@@ -17,11 +18,6 @@ namespace Tameru.View
         {
             animator.SetFloat(AnimationParameterStrings.FrontMove, animationSpeed.y);
             animator.SetFloat(AnimationParameterStrings.RightMove, animationSpeed.x);
-        }
-
-        public void OnCollisionEnter(Collision other)
-        {
-            
         }
     }
 }

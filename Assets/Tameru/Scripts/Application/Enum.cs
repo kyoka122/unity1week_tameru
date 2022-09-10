@@ -5,4 +5,10 @@ namespace Tameru
         None,
         Main,
     }
+
+    public enum EnemyType
+    {
+        None,
+        Test
+    }
 }

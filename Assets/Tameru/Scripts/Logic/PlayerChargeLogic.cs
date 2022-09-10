@@ -70,7 +70,6 @@ namespace Tameru.Logic
         private void ResetEntityParameter()
         {
             _playerChargeEntity.SetMaxChargeValue(GetChargeValue((MagicMode) EnumHelper.MaxIndex<MagicMode>()));
-            Debug.Log($"ResetEntityParameter():{GetChargeValue((MagicMode) EnumHelper.MaxIndex<MagicMode>())}");
             MagicMode nextMagicMode = _playerChargeEntity.currentMagic.Value + 1;
             _playerChargeView.InitSliderMaxValue(_playerMagicParameter.GetChargeParameter()[nextMagicMode]);
         }
@@ -115,7 +114,6 @@ namespace Tameru.Logic
         {
             var nextMagicMode = (MagicMode) Mathf.Min((int) magic + 1, EnumHelper.MaxIndex<MagicMode>());
             _playerChargeView.InitSliderMaxValue(_playerMagicParameter.GetChargeParameter()[nextMagicMode]);
-            Debug.Log($"GetChargeParameter()[nextMagicMode]:{_playerMagicParameter.GetChargeParameter()[nextMagicMode]}");
             
             _playerMagicView.UpdateUseAbleMagicText(_playerMagicParameter.MagicName[(int)_playerChargeEntity.currentMagic.Value]);
         }
