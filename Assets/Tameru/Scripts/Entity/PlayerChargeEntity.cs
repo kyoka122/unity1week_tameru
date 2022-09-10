@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Tameru.Entity
 {
     //MEMO: 大きくなるにつれて強い魔法になる
-    public enum MagicMode
+    public enum MagicType
     {
         None,
         Weak,
@@ -25,24 +25,24 @@ namespace Tameru.Entity
         /// 合計チャージ量
         /// </summary>
         public IReadOnlyReactiveProperty<float> chargingValue =>_chargingValue;
-        public IReadOnlyReactiveProperty<MagicMode> currentMagic =>_currentMagic;
+        public IReadOnlyReactiveProperty<MagicType> currentMagic =>_currentMagic;
 
         private const float DefaultChargeValue = 0.1f;
         private readonly ReactiveProperty<float> _chargeGaugeValue;
         private readonly ReactiveProperty<float> _chargingValue;
-        private readonly ReactiveProperty<MagicMode> _currentMagic;
+        private readonly ReactiveProperty<MagicType> _currentMagic;
 
         private float _maxChargeValue = 0;
         public PlayerChargeEntity()
         {
             _chargeGaugeValue = new ReactiveProperty<float>(0);
             _chargingValue = new ReactiveProperty<float>(0);
-            _currentMagic = new ReactiveProperty<MagicMode>();
+            _currentMagic = new ReactiveProperty<MagicType>();
         }
         
-        public void SetCurrentMagic(MagicMode newMagicMode)
+        public void SetCurrentMagic(MagicType newMagicType)
         {
-            _currentMagic.Value = newMagicMode;
+            _currentMagic.Value = newMagicType;
         }
         
         public void SetChargeGaugeValue(float currentMagicChargeValue)

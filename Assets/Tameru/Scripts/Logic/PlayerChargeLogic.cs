@@ -21,7 +21,7 @@ namespace Tameru.Logic
             _playerChargeView = playerChargeView;
             _playerMagicView = playerMagicView;
             _playerMagicParameter = playerMagicParameter;
-            _playerChargeView.InitSliderMaxValue(_playerMagicParameter.GetChargeParameter()[(MagicMode)1]);
+            _playerChargeView.InitSliderMaxValue(_playerMagicParameter.FindChargeValue((MagicType)1));
             
             RegisterReactiveProperty();
         }
@@ -45,7 +45,7 @@ namespace Tameru.Logic
                 .Subscribe(_playerChargeView.Render)
                 .AddTo(_playerChargeView);
 
-            this.ObserveEveryValueChanged(_=>_playerMagicParameter.MagicChargeValue)
+            this.ObserveEveryValueChanged(_=>_playerMagicParameter.GetAllChargeValue())
                 .Subscribe(_ => ResetEntityParameter())
                 .AddTo(_playerChargeView);
 
@@ -69,9 +69,9 @@ namespace Tameru.Logic
 
         private void ResetEntityParameter()
         {
-            _playerChargeEntity.SetMaxChargeValue(GetChargeValue((MagicMode) EnumHelper.MaxIndex<MagicMode>()));
-            MagicMode nextMagicMode = _playerChargeEntity.currentMagic.Value + 1;
-            _playerChargeView.InitSliderMaxValue(_playerMagicParameter.GetChargeParameter()[nextMagicMode]);
+            _playerChargeEntity.SetMaxChargeValue(GetChargeValue((MagicType) EnumHelper.MaxIndex<MagicType>()));
+            MagicType nextMagicType = (MagicType) Mathf.Min((int)_playerChargeEntity.currentMagic.Value + 1,EnumHelper.MaxIndex<MagicType>());
+            _playerChargeView.InitSliderMaxValue(_playerMagicParameter.FindChargeValue(nextMagicType));
         }
 
         private void UpdateMagic(float currentValue)
@@ -80,10 +80,10 @@ namespace Tameru.Logic
             _playerChargeEntity.SetCurrentMagic(nextMagic);
         }
         
-        private MagicMode GetUpdatedMagic(float currentValue)
+        private MagicType GetUpdatedMagic(float currentValue)
         {
-            MagicMode newMagic = 0;
-            foreach (var value in _playerMagicParameter.GetChargeParameter())
+            MagicType newMagic = 0;
+            foreach (var value in _playerMagicParameter.GetAllChargeValue())
             {
                 if (currentValue < GetChargeValue(value.Key))
                 {
@@ -95,10 +95,10 @@ namespace Tameru.Logic
             return newMagic;
         }
 
-        private float GetChargeValue(MagicMode magicMode)
+        private float GetChargeValue(MagicType magicType)
         {
-            return _playerMagicParameter.GetChargeParameter()
-                .Where(x=>x.Key<=magicMode)
+            return _playerMagicParameter.GetAllChargeValue()
+                .Where(x=>x.Key<=magicType)
                 .Sum(x=>x.Value);
         }
 
@@ -106,16 +106,16 @@ namespace Tameru.Logic
         {
             //MEMO: 最大魔法のチャージ量がMaxになった時、スライダーを満タンの状態で維持するために-1
             var currentMagic =
-                (MagicMode) Mathf.Min((int) _playerChargeEntity.currentMagic.Value, EnumHelper.MaxIndex<MagicMode>() - 1);
+                (MagicType) Mathf.Min((int) _playerChargeEntity.currentMagic.Value, EnumHelper.MaxIndex<MagicType>() - 1);
             _playerChargeEntity.SetChargeGaugeValue(GetChargeValue(currentMagic));
         }
         
-        private void UpdateViewByMagicChange(MagicMode magic)
+        private void UpdateViewByMagicChange(MagicType magic)
         {
-            var nextMagicMode = (MagicMode) Mathf.Min((int) magic + 1, EnumHelper.MaxIndex<MagicMode>());
-            _playerChargeView.InitSliderMaxValue(_playerMagicParameter.GetChargeParameter()[nextMagicMode]);
+            var nextMagicMode = (MagicType) Mathf.Min((int) magic + 1, EnumHelper.MaxIndex<MagicType>());
+            _playerChargeView.InitSliderMaxValue(_playerMagicParameter.FindChargeValue(nextMagicMode));
             
-            _playerMagicView.UpdateUseAbleMagicText(_playerMagicParameter.MagicName[(int)_playerChargeEntity.currentMagic.Value]);
+            _playerMagicView.UpdateUseAbleMagicText(_playerMagicParameter.FindName(_playerChargeEntity.currentMagic.Value));
         }
 
     }

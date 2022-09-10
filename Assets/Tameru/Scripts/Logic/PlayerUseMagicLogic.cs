@@ -37,7 +37,7 @@ namespace Tameru.Logic
         {
             _playerChargeEntity.ConsumeAll();
             var magic = _playerChargeEntity.currentMagic.Value;
-            if (magic==MagicMode.None)
+            if (magic==MagicType.None)
             {
                 return false;
             }

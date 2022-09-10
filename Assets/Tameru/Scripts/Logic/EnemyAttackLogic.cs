@@ -5,7 +5,6 @@ using Tameru.Entity;
 using Tameru.Parameter;
 using Tameru.View;
 using UniRx;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Tameru.Logic
@@ -18,15 +17,15 @@ namespace Tameru.Logic
         private readonly EnemyCommonParameter _enemyCommonParameter;
         private readonly PlayerHealthEntity _playerHealthEntity;
         
-        private readonly EnemyParameter[] _enemyParameters;
+        private readonly EnemyParameter _enemyParameter;
 
         public EnemyAttackLogic(AttackingEnemyEntity attackingEnemyEntity, PlayerHealthEntity playerHealthEntity,
-            EnemyParameter[] enemyParameter, EnemyCommonParameter enemyCommonParameter)
+            EnemyParameter enemyParameter, EnemyCommonParameter enemyCommonParameter)
         {
             _attackingEnemyEntity = attackingEnemyEntity;
             _playerHealthEntity = playerHealthEntity;
             _enemyCommonParameter = enemyCommonParameter;
-            _enemyParameters = enemyParameter;
+            _enemyParameter = enemyParameter;
         }
         
         public void CheckEnemyAttackStatus()
@@ -68,9 +67,7 @@ namespace Tameru.Logic
                 {
                     BaseEnemyView enemyView = attackingTimes.Key;
 
-                    float damage=_enemyParameters
-                        .First(param => param.EnemyType == enemyView.type)
-                        .AttackimgValue;
+                    float damage = _enemyParameter.FindAttack(enemyView.type);
                     _playerHealthEntity.AddDamage(damage);
                     _attackingEnemyEntity.ResetTime(enemyView);
                 }

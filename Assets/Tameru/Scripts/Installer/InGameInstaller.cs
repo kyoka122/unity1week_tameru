@@ -18,7 +18,7 @@ namespace Tameru.Installer
 
         [SerializeField] private PlayerParameter playerParameter;
         [SerializeField] private PlayerMagicParameter playerMagicParameter;
-        [SerializeField] private EnemyParameter[] enemyParameters;
+        [SerializeField] private EnemyParameter enemyParameter;
         [SerializeField] private EnemyCommonParameter enemyCommonParameter;
         [SerializeField] private EnemySpawnView enemySpawnView;
         [SerializeField] private PhaseParameter phaseParameter;
@@ -35,14 +35,16 @@ namespace Tameru.Installer
             var phaseEntity = new PhaseEntity();
             var enemySpawnEntity = new EnemySpawnEntity();
             var gameTimeKeeperLogic = new GameTimeKeeperLogic(phaseEntity,phaseParameter);
-            
+            var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter);
             
             var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
             var playerLogic = new PlayerLogic(playerEntity,playerView,playerParameter);
             var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMagicView,playerMagicParameter);
-            var enemyAttackLogic = new EnemyAttackLogic(attackingEnemyEntity, playerHealthEntity, enemyParameters,
+            var enemyAttackLogic = new EnemyAttackLogic(attackingEnemyEntity, playerHealthEntity, enemyParameter,
                 enemyCommonParameter);
-            var enemySpawnerLogic = new EnemySpawnLogic(enemySpawnView,cameraView,phaseEntity,enemySpawnEntity,phaseParameter,enemyCommonParameter,enemyParameters,enemyAttackLogic.registerAttackingFlag);
+            var enemySpawnLogic = new EnemySpawnLogic(enemySpawnView, cameraView, phaseEntity, enemySpawnEntity,
+                phaseParameter, enemyCommonParameter, enemyParameter, enemyAttackLogic.registerAttackingFlag,
+                enemyHealthLogic.registerHealthObserver);
             
 
             this.UpdateAsObservable()
@@ -51,7 +53,7 @@ namespace Tameru.Installer
                     chargeLogic.UpdateCharge();
                     playerUseMagicLogic.UpdateUseMagic();
                     playerLogic.Move();
-                    enemySpawnerLogic.UpdateSpawnEnemy();
+                    enemySpawnLogic.UpdateSpawnEnemy();
                     enemyAttackLogic.CheckEnemyAttackStatus();
                     
                     //MEMO: ↓ゲーム開始後に呼び出す
