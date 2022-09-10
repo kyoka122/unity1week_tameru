@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d620acd129f46ebbd0bd5cbb31a21ab, type: 3}
+  m_Name: PhaseParameter
+  m_EditorClassIdentifier: 
+  phaseData:
+  - phaseTime: 20
+    enemyInstanceInterval: 5
+    instanceData:
+    - type: 1
+      instanceRate: 50
+    - type: 1
+      instanceRate: 50
+  - phaseTime: 20
+    enemyInstanceInterval: 5
+    instanceData:
+    - type: 1
+      instanceRate: 50
+    - type: 1
+      instanceRate: 50

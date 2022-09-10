@@ -5,7 +5,7 @@ namespace Tameru
         None,
         Main,
     }
-
+    
     public enum SeType
     {
         None,
@@ -19,5 +19,11 @@ namespace Tameru
         Top,
         Main,
         Result,
+    }
+    
+    public enum EnemyType
+    {
+        None,
+        Test
     }
 }
