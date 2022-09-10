@@ -15,6 +15,8 @@ namespace Tameru.View
         // TODO: 仮のフェード実装のため修正する
         public async UniTask ShowAsync(CancellationToken token)
         {
+            Activate(true);
+
             await mask
                 .DOFade(1.0f, fadeTime)
                 .SetEase(Ease.Linear)
@@ -30,6 +32,13 @@ namespace Tameru.View
                 .SetEase(Ease.Linear)
                 .SetLink(gameObject)
                 .WithCancellation(token);
+
+            Activate(false);
+        }
+
+        private void Activate(bool value)
+        {
+            mask.raycastTarget = value;
         }
     }
 }
