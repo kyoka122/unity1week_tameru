@@ -6,7 +6,7 @@ namespace Tameru.View
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class BaseMagicView : MonoBehaviour
     {
-        private float speed = 5.0f;
+       [SerializeField] private float speed = 5.0f;
 
         public abstract MagicType magicType { get; }
 
