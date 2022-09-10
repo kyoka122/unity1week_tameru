@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Tameru.Application;
 using Tameru.Entity;
 using Tameru.Parameter;
 using Tameru.View;
@@ -12,22 +12,32 @@ namespace Tameru.Logic
     public class EnemyAttackLogic
     {
         public Action<BaseEnemyView> registerAttackingFlag => RegisterReactiveProperty;
-        
+
         private readonly AttackingEnemyEntity _attackingEnemyEntity;
-        private readonly EnemyCommonParameter _enemyCommonParameter;
         private readonly PlayerHealthEntity _playerHealthEntity;
-        
+        private readonly PlayerMoveEntity _playerMoveEntity;
+        private readonly PlayerView _playerView;
+
+        private readonly EnemyCommonParameter _enemyCommonParameter;
         private readonly EnemyParameter _enemyParameter;
+        private readonly PlayerParameter _playerParameter;
 
         public EnemyAttackLogic(AttackingEnemyEntity attackingEnemyEntity, PlayerHealthEntity playerHealthEntity,
-            EnemyParameter enemyParameter, EnemyCommonParameter enemyCommonParameter)
+            PlayerMoveEntity playerMoveEntity,
+            PlayerView playerView,EnemyParameter enemyParameter, EnemyCommonParameter enemyCommonParameter,
+            PlayerParameter playerParameter)
         {
             _attackingEnemyEntity = attackingEnemyEntity;
             _playerHealthEntity = playerHealthEntity;
+            _playerMoveEntity = playerMoveEntity;
+            _playerView = playerView;
             _enemyCommonParameter = enemyCommonParameter;
             _enemyParameter = enemyParameter;
+            _playerParameter = playerParameter;
+
+            
         }
-        
+
         public void CheckEnemyAttackStatus()
         {
             IReadOnlyDictionary<BaseEnemyView, float> attackingTime =new Dictionary<BaseEnemyView, float>(_attackingEnemyEntity.attackingTime);
@@ -47,7 +57,7 @@ namespace Tameru.Logic
 
             enemyView.isAttackingPlayer
                 .Where(isAttacking => !isAttacking)
-                .Subscribe(_ => { _attackingEnemyEntity.UnRegisterAttackingEnemy(enemyView); }).AddTo(enemyView);
+                .Subscribe(_ =>  _attackingEnemyEntity.UnRegisterAttackingEnemy(enemyView)).AddTo(enemyView);
         }
 
         private void AddPassedTime(IReadOnlyDictionary<BaseEnemyView, float> attackingTime)
@@ -67,13 +77,19 @@ namespace Tameru.Logic
                 {
                     BaseEnemyView enemyView = attackingTimes.Key;
 
-                    float damage = _enemyParameter.FindAttack(enemyView.type);
+                    int damage = _enemyParameter.FindAttack(enemyView.type);
                     _playerHealthEntity.AddDamage(damage);
+                    _playerView.NockBack(-GetVecToPlayer(_playerMoveEntity.pos, enemyView.pos) *
+                                         _playerParameter.NockBackForce);
                     _attackingEnemyEntity.ResetTime(enemyView);
                 }
             }
         }
-        
-        
+
+        private Vector2 GetVecToPlayer(Vector2 current,Vector2 target)
+        {
+            return target - current;
+        }
+
     }
 }

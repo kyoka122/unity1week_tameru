@@ -17,3 +17,4 @@ MonoBehaviour:
     prefab: {fileID: -4504845725728145902, guid: 2b7d32a2b7f7f7e47a0a8a1557919eb0, type: 3}
     hp: 5
     attack: 5
+    speed: 2

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ca2aca99b04ac387cf2a57a7065c48, type: 3}
   m_Name: PlayerParameter
   m_EditorClassIdentifier: 
+  maxHp: 10
   slowWalkSpeed: 0.58
   walkSpeed: 3.23
+  territory: 0.1
+  nockBackForce: 297.24
