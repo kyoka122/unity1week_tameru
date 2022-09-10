@@ -16,6 +16,7 @@ namespace Tameru.View
         [SerializeField] private SeType cursorOverSe = default;
 
         protected Action push;
+        private bool _isActive = true;
 
         private readonly float _animationTime = 0.1f;
 
@@ -40,12 +41,14 @@ namespace Tameru.View
             var button = GetComponent<UIButton>();
             button
                 .OnPointerDownAsObservable()
+                .Where(_ => _isActive)
                 .Subscribe(_ => push?.Invoke())
                 .AddTo(this);
 
             var image = button.GetComponent<MPImage>();
             button
                 .OnPointerEnterAsObservable()
+                .Where(_ => _isActive)
                 .Where(_ => cursorOverSe != SeType.None)
                 .Subscribe(_ =>
                 {
@@ -57,12 +60,18 @@ namespace Tameru.View
             var defaultColor = image.color;
             button
                 .OnPointerExitAsObservable()
+                .Where(_ => _isActive)
                 .Where(_ => cursorOverSe != SeType.None)
                 .Subscribe(_ =>
                 {
                     image.color = defaultColor;
                 })
                 .AddTo(this);
+        }
+
+        public void Activate(bool value)
+        {
+            _isActive = value;
         }
     }
 }
