@@ -3,18 +3,19 @@ using UnityEngine.UI;
 
 namespace Tameru.View
 {
-    public class PlayerHealthView:MonoBehaviour
+    public class PlayerHealthView : MonoBehaviour
     {
-        [SerializeField] private Slider hp;
+        [SerializeField] private Image hpGauge = default;
+        private float _maxValue;
 
         public void SetMaxHp(int newMaxHp)
         {
-            hp.maxValue = newMaxHp;
+            _maxValue = newMaxHp;
         }
 
         public void SetHp(int newHp)
         {
-            hp.value = newHp;
+            hpGauge.fillAmount = newHp / _maxValue;
         }
     }
 }
