@@ -29,7 +29,6 @@ namespace Tameru.Logic
         {
             enemyView.UpdateAsObservable().Subscribe(_ =>
             {
-                Debug.Log($"GetToTargetVector(enemyView.pos):{GetToTargetVector(enemyView.pos)}");
                 Vector2 newVelocity = GetToTargetVector(enemyView.pos).normalized * _enemyParameter.FindSpeed(enemyView.type);
                 enemyView.MoveEnemyMover(newVelocity);
             }).AddTo(enemyView);
@@ -39,9 +38,9 @@ namespace Tameru.Logic
         private Vector2 GetToTargetVector(Vector2 enemyPos)
         {
             float toPlayerDistance = Vector2.Distance(enemyPos, _playerMoveEntity.pos);
-            Debug.Log($"enemyPos:{enemyPos}");
-            Debug.Log($"_playerMoveEntity.pos:{_playerMoveEntity.pos}");
-            return Vector2.MoveTowards(enemyPos,_playerMoveEntity.pos, toPlayerDistance-_playerParameter.Territory);
+            Vector2 targetPos = Vector2.MoveTowards(enemyPos, _playerMoveEntity.pos,
+                toPlayerDistance - _playerParameter.Territory);
+            return targetPos - enemyPos;
         }
     }
 }
