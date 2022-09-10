@@ -22,10 +22,11 @@ namespace Tameru.Logic
         
         private readonly Action<BaseEnemyView> _registerAttackingFlag;
         private readonly Action<BaseEnemyView> _registerHealthObserver;
+        private readonly Action<BaseEnemyView> _registerMoveEnemyMover;
 
         public EnemySpawnLogic(EnemySpawnView enemySpawnView, CameraView cameraView,PhaseEntity phaseEntity,
             EnemySpawnEntity enemySpawnEntity, PhaseParameter phaseParameter, EnemyCommonParameter enemyCommonParameter,EnemyParameter enemyParameter,
-            Action<BaseEnemyView> registerAttackingFlag,Action<BaseEnemyView> registerHealthObserver)
+            Action<BaseEnemyView> registerAttackingFlag,Action<BaseEnemyView> registerHealthObserver,Action<BaseEnemyView> registerMoveEnemyMover)
         {
             _enemySpawnView = enemySpawnView;
             _cameraView = cameraView;
@@ -36,6 +37,7 @@ namespace Tameru.Logic
             _enemyParameter = enemyParameter;
             _registerAttackingFlag = registerAttackingFlag;
             _registerHealthObserver = registerHealthObserver;
+            _registerMoveEnemyMover = registerMoveEnemyMover;
             
             RegisterReactiveProperty();
         }
@@ -86,6 +88,7 @@ namespace Tameru.Logic
             enemyView.Init(hp);
             _registerAttackingFlag.Invoke(enemyView);
             _registerHealthObserver.Invoke(enemyView);
+            _registerMoveEnemyMover.Invoke(enemyView);
         }
 
         //MEMO: Spawnする場所の候補をあらかじめパラメータとして持っておき、画面外にある候補から抽選する

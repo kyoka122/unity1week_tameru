@@ -44,5 +44,16 @@ namespace Tameru.Parameter
             return result.Value;
         }
         
+        public int FindSpeed(EnemyType type)
+        {
+            int? result = data.FirstOrDefault(enemy => enemy.type == type)?.speed;
+            if (result==null)
+            {
+                Debug.LogError("Not Found Data");
+                return -1;
+            }
+            return result.Value;
+        }
+        
     }
 }

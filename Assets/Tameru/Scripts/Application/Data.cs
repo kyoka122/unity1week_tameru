@@ -36,6 +36,7 @@ namespace Tameru.Application
         public EnemyType type ;
         public BaseEnemyView prefab;
         public int hp;
-        public int attack; 
+        public int attack;
+        public int speed;
     }
 }

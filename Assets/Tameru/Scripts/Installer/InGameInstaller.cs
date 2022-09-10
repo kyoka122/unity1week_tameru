@@ -29,7 +29,7 @@ namespace Tameru.Installer
         private void Awake()
         {
             var playerChargeEntity = new PlayerChargeEntity();
-            var playerEntity = new PlayerMoveEntity();
+            var playerMoveEntity = new PlayerMoveEntity();
             var attackingEnemyEntity = new AttackingEnemyEntity();
             var playerHealthEntity = new PlayerHealthEntity();
             var phaseEntity = new PhaseEntity();
@@ -38,13 +38,15 @@ namespace Tameru.Installer
             var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter);
             
             var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
-            var playerLogic = new PlayerLogic(playerEntity,playerView,playerParameter);
+            var playerLogic = new PlayerLogic(playerMoveEntity,playerView,playerParameter);
             var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMagicView,playerMagicParameter);
             var enemyAttackLogic = new EnemyAttackLogic(attackingEnemyEntity, playerHealthEntity, enemyParameter,
                 enemyCommonParameter);
+            var enemyLogic = new EnemyLogic(playerMoveEntity, enemyParameter, playerParameter);
             var enemySpawnLogic = new EnemySpawnLogic(enemySpawnView, cameraView, phaseEntity, enemySpawnEntity,
                 phaseParameter, enemyCommonParameter, enemyParameter, enemyAttackLogic.registerAttackingFlag,
-                enemyHealthLogic.registerHealthObserver);
+                enemyHealthLogic.registerHealthObserver,enemyLogic.registerMoveEnemyMover);
+            
             
 
             this.UpdateAsObservable()

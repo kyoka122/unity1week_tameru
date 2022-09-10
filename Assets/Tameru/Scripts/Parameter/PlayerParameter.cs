@@ -8,8 +8,11 @@ namespace Tameru.Application
         public float FreezeSpeed { get; } = 0;
         public float SlowWalkSpeed=>slowWalkSpeed;
         public float WalkSpeed=>walkSpeed;
+        public float Territory => territory;
         
         [SerializeField] private float slowWalkSpeed;
         [SerializeField] private float walkSpeed;
+        [SerializeField,Tooltip("敵がそれ以上近づけない距離")] private float territory;
+        
     }
 }
