@@ -24,7 +24,7 @@ namespace Tameru.Installer
         [SerializeField] private PhaseParameter phaseParameter;
         [SerializeField] private PlayerHealthView playerHealthView;
 
-
+        [SerializeField] private ScoreView scoreView = default;
 
         private void Awake()
         {
@@ -34,6 +34,8 @@ namespace Tameru.Installer
             var playerHealthEntity = new PlayerHealthEntity();
             var phaseEntity = new PhaseEntity();
             var enemySpawnEntity = new EnemySpawnEntity();
+            var scoreEntity = new ScoreEntity();
+
             var gameTimeKeeperLogic = new GameTimeKeeperLogic(phaseEntity,phaseParameter);
             var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter);
             var playerHealthLogic = new PlayerHealthLogic(playerHealthView, playerHealthEntity, playerParameter); 
@@ -47,8 +49,8 @@ namespace Tameru.Installer
             var enemySpawnLogic = new EnemySpawnLogic(enemySpawnView, cameraView, phaseEntity, enemySpawnEntity,
                 phaseParameter, enemyCommonParameter, enemyParameter, enemyAttackLogic.registerAttackingFlag,
                 enemyHealthLogic.registerHealthObserver,enemyLogic.registerMoveEnemyMover);
-            
-            
+
+            var scoreLogic = new ScoreLogic(scoreEntity, scoreView);
 
             this.UpdateAsObservable()
                 .Subscribe(_ =>
