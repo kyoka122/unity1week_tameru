@@ -14,6 +14,11 @@ namespace Tameru.View
             rigidbody.velocity = moveSpeed;
         }
 
+        public void NockBack(Vector2 nockBackVelocity)
+        {
+            rigidbody.AddForce(nockBackVelocity);
+        }
+
         public void AnimateMove(Vector2 animationSpeed)
         {
             animator.SetFloat(AnimationParameterStrings.FrontMove, animationSpeed.y);
