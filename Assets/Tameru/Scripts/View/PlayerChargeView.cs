@@ -3,20 +3,19 @@ using UnityEngine.UI;
 
 namespace Tameru.View
 {
-    public class PlayerChargeView:MonoBehaviour
+    public class PlayerChargeView : MonoBehaviour
     {
-        [SerializeField] private Text chargeText;
-        [SerializeField] private Slider chargeValueSlider;
+        [SerializeField] private Image chargeGauge = default;
+        private float _maxValue;
 
         public void InitSliderMaxValue(float newMaxValue)
         {
-            chargeValueSlider.maxValue = newMaxValue;
+            _maxValue = newMaxValue;
         }
 
         public void Render(float value)
         {
-            chargeValueSlider.value = value;
-            chargeText.text = value.ToString();
+            chargeGauge.fillAmount = value / _maxValue;
         }
     }
 }
