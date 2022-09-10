@@ -5,6 +5,7 @@ namespace Tameru
         None,
         Top,
         Main,
+        Ranking,
     }
 
     public enum SeType
