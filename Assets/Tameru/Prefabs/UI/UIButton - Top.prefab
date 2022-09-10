@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.007843138, g: 0.2784314, b: 0.36862746, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_MaterialMode: 0
   m_StrokeWidth: 0
   m_OutlineWidth: 2.5
-  m_OutlineColor: {r: 0.58431375, g: 0.88235295, b: 0.827451, a: 1}
+  m_OutlineColor: {r: 1, g: 1, b: 1, a: 1}
   m_FalloffDistance: 0
   m_ConstrainRotation: 1
   m_ShapeRotation: 0
@@ -376,6 +376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Text (TMP)
       objectReference: {fileID: 0}
+    - target: {fileID: 5807818657139493750, guid: 16ab89bd0ea9d468d8315c7fdab013e0, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5552818387763765016, guid: 29f358f4825735042a77ab3cf7052524, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16ab89bd0ea9d468d8315c7fdab013e0, type: 3}
 --- !u!224 &2843645320047386851 stripped
