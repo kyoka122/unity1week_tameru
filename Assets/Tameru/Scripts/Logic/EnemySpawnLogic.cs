@@ -25,8 +25,8 @@ namespace Tameru.Logic
         private readonly Action<BaseEnemyView> _registerMoveEnemyMover;
 
         public EnemySpawnLogic(EnemySpawnView enemySpawnView, CameraView cameraView, PhaseEntity phaseEntity,
-            EnemySpawnEntity enemySpawnEntity, PhaseParameter phaseParameter, EnemyCommonParameter enemyCommonParameter,
-            EnemyParameter enemyParameter,
+            EnemySpawnEntity enemySpawnEntity, GameStateEntity gameStateEntity,
+            PhaseParameter phaseParameter, EnemyCommonParameter enemyCommonParameter, EnemyParameter enemyParameter,
             Action<BaseEnemyView> registerAttackingFlag, Action<BaseEnemyView> registerHealthObserver,
             Action<BaseEnemyView> registerMoveEnemyMover)
         {
@@ -41,16 +41,13 @@ namespace Tameru.Logic
             _registerHealthObserver = registerHealthObserver;
             _registerMoveEnemyMover = registerMoveEnemyMover;
 
-            RegisterReactiveProperty();
-        }
-
-        private void RegisterReactiveProperty()
-        {
             _phaseEntity.phaseProperty
                 .Subscribe(_ =>
                 {
                     if (!_phaseParameter.IsPlayingPhase(_phaseEntity.phase))
                     {
+                        // ゲームクリア
+                        gameStateEntity.Set(GameState.Clear);
                         return;
                     }
 

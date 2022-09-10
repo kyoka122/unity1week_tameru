@@ -24,7 +24,9 @@ namespace Tameru.Installer
         [SerializeField] private PhaseParameter phaseParameter;
         [SerializeField] private PlayerHealthView playerHealthView;
 
-
+        [SerializeField] private ScoreView scoreView = default;
+        [SerializeField] private TimeView timeView = default;
+        [SerializeField] private GameStateView stateView = default;
 
         private void Awake()
         {
@@ -34,23 +36,30 @@ namespace Tameru.Installer
             var playerHealthEntity = new PlayerHealthEntity();
             var phaseEntity = new PhaseEntity();
             var enemySpawnEntity = new EnemySpawnEntity();
+            var scoreEntity = new ScoreEntity();
+            var stateEntity = new GameStateEntity();
+
             var gameTimeKeeperLogic = new GameTimeKeeperLogic(phaseEntity,phaseParameter);
             var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter);
             var playerHealthLogic = new PlayerHealthLogic(playerHealthView, playerHealthEntity, playerParameter); 
             
             var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
-            var playerLogic = new PlayerLogic(playerMoveEntity,playerHealthEntity,playerView,playerParameter);
+            var playerLogic = new PlayerLogic(playerMoveEntity,playerHealthEntity,stateEntity,playerView,playerParameter);
             var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMagicView,playerMagicParameter);
             var enemyAttackLogic = new EnemyAttackLogic(attackingEnemyEntity, playerHealthEntity, playerMoveEntity,
                 playerView, enemyParameter, enemyCommonParameter, playerParameter);
             var enemyLogic = new EnemyLogic(playerMoveEntity, enemyParameter, playerParameter);
             var enemySpawnLogic = new EnemySpawnLogic(enemySpawnView, cameraView, phaseEntity, enemySpawnEntity,
+                stateEntity,
                 phaseParameter, enemyCommonParameter, enemyParameter, enemyAttackLogic.registerAttackingFlag,
                 enemyHealthLogic.registerHealthObserver,enemyLogic.registerMoveEnemyMover);
-            
-            
+
+            var scoreLogic = new ScoreLogic(scoreEntity, scoreView);
+            var timeLogic = new TimeLogic(phaseEntity, timeView);
+            var stateLogic = new GameStateLogic(stateEntity, scoreEntity, stateView);
 
             this.UpdateAsObservable()
+                .Where(_ => stateEntity.IsState(GameState.Main))
                 .Subscribe(_ =>
                 {
                     chargeLogic.UpdateCharge();

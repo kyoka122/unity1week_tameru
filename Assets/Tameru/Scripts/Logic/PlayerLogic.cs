@@ -13,22 +13,26 @@ namespace Tameru.Logic
         private readonly PlayerView _playerView;
         private readonly PlayerParameter _playerParameter;
 
-        public PlayerLogic(PlayerMoveEntity playerMoveEntity,PlayerHealthEntity playerHealthEntity,PlayerView playerView,PlayerParameter playerParameter)
+        public PlayerLogic(PlayerMoveEntity playerMoveEntity, PlayerHealthEntity playerHealthEntity,
+            GameStateEntity gameStateEntity, PlayerView playerView, PlayerParameter playerParameter)
         {
             _playerMoveEntity = playerMoveEntity;
             _playerView = playerView;
             _playerParameter = playerParameter;
-            
+
             _playerMoveEntity.SetMoveMode(MoveMode.Walk);
             playerHealthEntity.isAlive.Where(alive => !alive)
-                .Subscribe(_=>Debug.Log("PlayerDefeated"))
+                .Subscribe(_ =>
+                {
+                    // ゲームオーバー
+                    gameStateEntity.Set(GameState.Over);
+                })
                 .AddTo(playerView);
         }
-        
 
         public void Move()
         {
-            if (InputKeyData.IsCharging||InputKeyData.CanUseMagic)
+            if (InputKeyData.IsCharging || InputKeyData.CanUseMagic)
             {
                 _playerMoveEntity.SetMoveMode(MoveMode.SlowWalk);
             }
@@ -36,23 +40,23 @@ namespace Tameru.Logic
             {
                 _playerMoveEntity.SetMoveMode(MoveMode.Walk);
             }
+
             UpdateMoveSpeedParameters();
         }
 
         //MEMO: キーの入力量によるパラメータ変化
         private void UpdateMoveSpeedParameters()
         {
-
-            Vector2 inputVec= new Vector2(InputKeyData.HorizontalMoveValue, InputKeyData.VerticalMoveValue);
+            Vector2 inputVec = new Vector2(InputKeyData.HorizontalMoveValue, InputKeyData.VerticalMoveValue);
             Vector2 normalizedVec = inputVec.normalized;
             _playerMoveEntity.SetMoveVec(normalizedVec);
             _playerMoveEntity.SetPlayerPos(_playerView.transform.position);
-            
+
             var newMoveAnimationSpeed = inputVec / Enum.GetValues(typeof(MoveMode)).Length *
-                                        (int) _playerMoveEntity.moveMode;
+                                        (int)_playerMoveEntity.moveMode;
             _playerView.AnimateMove(newMoveAnimationSpeed);
-            
-            var newMoveSpeedRate=GetMoveSpeedRate(_playerMoveEntity.moveMode);
+
+            var newMoveSpeedRate = GetMoveSpeedRate(_playerMoveEntity.moveMode);
             var newMoveSpeed = normalizedVec * newMoveSpeedRate;
             _playerView.Move(newMoveSpeed);
         }
