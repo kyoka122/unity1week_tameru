@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cde8a52dfb48259681cb987328104c, type: 3}
   m_Name: PlayerMagicParameter
   m_EditorClassIdentifier: 
-  magicChargeValue: 000000001300000014000000
-  magicName:
-  - None
-  - Weak
-  - Strong
+  data:
+  - type: 0
+    prefab: {fileID: 0}
+    name: None
+    chargeValue: 0
+    damage: 0
+  - type: 1
+    prefab: {fileID: 0}
+    name: Weak
+    chargeValue: 5
+    damage: 1
+  - type: 2
+    prefab: {fileID: 0}
+    name: Strong
+    chargeValue: 10
+    damage: 10

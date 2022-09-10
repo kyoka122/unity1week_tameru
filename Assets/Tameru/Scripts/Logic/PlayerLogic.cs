@@ -39,15 +39,16 @@ namespace Tameru.Logic
         private void UpdateMoveSpeedParameters()
         {
 
-            Vector3 inputVec= new Vector3(InputKeyData.HorizontalMoveValue, InputKeyData.VerticalMoveValue,0);
-            Vector3 normalizedVec = inputVec.normalized;
+            Vector2 inputVec= new Vector2(InputKeyData.HorizontalMoveValue, InputKeyData.VerticalMoveValue);
+            Vector2 normalizedVec = inputVec.normalized;
             _playerMoveEntity.SetMoveVec(normalizedVec);
+            _playerMoveEntity.SetPlayerPos(_playerView.transform.position);
             
             var newMoveAnimationSpeed = inputVec / Enum.GetValues(typeof(MoveMode)).Length *
-                                        (int) _playerMoveEntity.currentMoveMode;
+                                        (int) _playerMoveEntity.moveMode;
             _playerView.AnimateMove(newMoveAnimationSpeed);
             
-            var newMoveSpeedRate=GetMoveSpeedRate(_playerMoveEntity.currentMoveMode);
+            var newMoveSpeedRate=GetMoveSpeedRate(_playerMoveEntity.moveMode);
             var newMoveSpeed = normalizedVec * newMoveSpeedRate;
             _playerView.Move(newMoveSpeed);
         }

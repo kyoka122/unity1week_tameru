@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Tameru.Application;
 using Tameru.Entity;
 using Tameru.Utility;
 using UniRx;
@@ -9,23 +12,43 @@ namespace Tameru.Parameter
     [CreateAssetMenu(fileName = "PlayerMagicParameter", menuName = "ScriptableObjects/PlayerMagicParameter", order = 2)]
     public class PlayerMagicParameter:ScriptableObject
     {
-        public int[] MagicChargeValue=>magicChargeValue;
-
-        public string[] MagicName => magicName;
-        //[SerializeField] private int weakMagicNeedChargeValue;
-        //[SerializeField] private int strongMagicNeedChargeValue;
+        [SerializeField] private MagicData[] data;
         
-        [SerializeField, EnumIndex(typeof(MagicMode))] private int[] magicChargeValue;
-        [SerializeField, EnumIndex(typeof(MagicMode))] private string[] magicName;
-        
-        public Dictionary<MagicMode, int> GetChargeParameter()
+        public Dictionary<MagicType, int> GetAllChargeValue()
         {
-            return new()
+            return data.ToDictionary(param => param.type, param => param.chargeValue);
+        }
+
+        public int FindDamage(MagicType findType)
+        {
+            int? result = data.FirstOrDefault(magic => magic.type == findType)?.damage;
+            if (result==null)
             {
-                {MagicMode.None, magicChargeValue[0]},
-                {MagicMode.Weak, magicChargeValue[1]},
-                {MagicMode.Strong, magicChargeValue[2]}
-            };
+                Debug.LogError("Not Found Data");
+                return -1;
+            }
+            return result.Value;
+        }
+
+        public string FindName(MagicType findType)
+        {
+            string result = data.FirstOrDefault(magic => magic.type == findType)?.name;
+            if (result==null)
+            {
+                Debug.LogError("Not Found Data");
+            }
+            return result;
+        }
+
+        public int FindChargeValue(MagicType findType)
+        {
+            int? result= data.FirstOrDefault(magic => magic.type == findType)?.chargeValue;
+            if (result==null)
+            {
+                Debug.LogError($"Not Found Data");
+                return -1;
+            }
+            return result.Value;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Tameru.View
             useAbleMagicNameText.text = magicName;
         }
         
-        public void UseMagic(MagicMode magicMode)
+        public void UseMagic(MagicType magicType)
         {
             Debug.Log($"UseMagic");
         }

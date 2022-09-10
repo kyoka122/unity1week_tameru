@@ -18,14 +18,15 @@ namespace Tameru.Logic
         private readonly EnemySpawnEntity _enemySpawnEntity;
         private readonly PhaseParameter _phaseParameter;
         private readonly EnemyCommonParameter _enemyCommonParameter;
-        private readonly EnemyParameter[] _enemyParameters;
-
-
+        private readonly EnemyParameter _enemyParameter;
+        
         private readonly Action<BaseEnemyView> _registerAttackingFlag;
+        private readonly Action<BaseEnemyView> _registerHealthObserver;
+        private readonly Action<BaseEnemyView> _registerMoveEnemyMover;
 
         public EnemySpawnLogic(EnemySpawnView enemySpawnView, CameraView cameraView,PhaseEntity phaseEntity,
-            EnemySpawnEntity enemySpawnEntity, PhaseParameter phaseParameter, EnemyCommonParameter enemyCommonParameter,EnemyParameter[] enemyParameters,
-            Action<BaseEnemyView> registerAttackingFlag)
+            EnemySpawnEntity enemySpawnEntity, PhaseParameter phaseParameter, EnemyCommonParameter enemyCommonParameter,EnemyParameter enemyParameter,
+            Action<BaseEnemyView> registerAttackingFlag,Action<BaseEnemyView> registerHealthObserver,Action<BaseEnemyView> registerMoveEnemyMover)
         {
             _enemySpawnView = enemySpawnView;
             _cameraView = cameraView;
@@ -33,8 +34,10 @@ namespace Tameru.Logic
             _enemySpawnEntity = enemySpawnEntity;
             _phaseParameter = phaseParameter;
             _enemyCommonParameter = enemyCommonParameter;
+            _enemyParameter = enemyParameter;
             _registerAttackingFlag = registerAttackingFlag;
-            _enemyParameters = enemyParameters;
+            _registerHealthObserver = registerHealthObserver;
+            _registerMoveEnemyMover = registerMoveEnemyMover;
             
             RegisterReactiveProperty();
         }
@@ -81,8 +84,11 @@ namespace Tameru.Logic
 
         private void InitEnemyView(BaseEnemyView enemyView)
         {
-            enemyView.Init();
+            var hp = _enemyParameter.FindHp(enemyView.type);
+            enemyView.Init(hp);
             _registerAttackingFlag.Invoke(enemyView);
+            _registerHealthObserver.Invoke(enemyView);
+            _registerMoveEnemyMover.Invoke(enemyView);
         }
 
         //MEMO: Spawnする場所の候補をあらかじめパラメータとして持っておき、画面外にある候補から抽選する
@@ -105,7 +111,7 @@ namespace Tameru.Logic
             int[] percentages=instanceData.Select(data => data.instanceRate).ToArray();
 
             EnemyType spawnEnemyType = instanceData[GetRandomIndex(percentages)].type;
-            BaseEnemyView spawnEnemy = _enemyParameters.FirstOrDefault(param => param.EnemyType == spawnEnemyType)?.Prefab;
+            BaseEnemyView spawnEnemy = _enemyParameter.FindPrefab(spawnEnemyType);
             return spawnEnemy;
         }
 

@@ -1,4 +1,7 @@
-﻿using Tameru.View;
+﻿using System;
+using System.Linq;
+using Tameru.Application;
+using Tameru.View;
 using UniRx;
 using UnityEngine;
 
@@ -7,17 +10,50 @@ namespace Tameru.Parameter
     [CreateAssetMenu(fileName = "EnemyParameter", menuName = "ScriptableObjects/EnemyParameter", order = 3)]
     public class EnemyParameter:ScriptableObject
     {
-        public EnemyType EnemyType => enemyType;
-        public BaseEnemyView Prefab => prefab;
-        public float Hp => hp;
-        public float AttackimgValue=>attackValue; 
+        public EnemyData[] data;
         
-        [SerializeField] private EnemyType enemyType;
-        [SerializeField] private BaseEnemyView prefab;
-        [SerializeField] private int hp;
-        [SerializeField] private int attackValue;
+        public BaseEnemyView FindPrefab(EnemyType type)
+        {
+            BaseEnemyView result = data.FirstOrDefault(enemy => enemy.type == type)?.prefab;
+            if (result==null)
+            {
+                Debug.LogError("Not Found Data");
+            }
+            return result;
+        }
         
+        public int FindHp(EnemyType type)
+        {
+            int? result = data.FirstOrDefault(enemy => enemy.type == type)?.hp;
+            if (result==null)
+            {
+                Debug.LogError("Not Found Data");
+                return -1;
+            }
+            return result.Value;
+        }
         
-
+        public int FindAttack(EnemyType type)
+        {
+            int? result = data.FirstOrDefault(enemy => enemy.type == type)?.attack;
+            if (result==null)
+            {
+                Debug.LogError("Not Found Data");
+                return -1;
+            }
+            return result.Value;
+        }
+        
+        public int FindSpeed(EnemyType type)
+        {
+            int? result = data.FirstOrDefault(enemy => enemy.type == type)?.speed;
+            if (result==null)
+            {
+                Debug.LogError("Not Found Data");
+                return -1;
+            }
+            return result.Value;
+        }
+        
     }
 }

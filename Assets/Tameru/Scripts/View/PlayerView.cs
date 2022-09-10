@@ -9,12 +9,12 @@ namespace Tameru.View
         [SerializeField] private Rigidbody2D rigidbody;
         [SerializeField] private Animator animator;
         
-        public void Move(Vector3 moveSpeed)
+        public void Move(Vector2 moveSpeed)
         {
             rigidbody.velocity = moveSpeed;
         }
 
-        public void AnimateMove(Vector3 animationSpeed)
+        public void AnimateMove(Vector2 animationSpeed)
         {
             animator.SetFloat(AnimationParameterStrings.FrontMove, animationSpeed.y);
             animator.SetFloat(AnimationParameterStrings.RightMove, animationSpeed.x);
