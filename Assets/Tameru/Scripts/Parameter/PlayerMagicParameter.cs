@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Tameru.Application;
 using Tameru.Entity;
-using Tameru.Utility;
-using UniRx;
 using UnityEngine;
 
 namespace Tameru.Parameter
@@ -12,11 +10,30 @@ namespace Tameru.Parameter
     [CreateAssetMenu(fileName = "PlayerMagicParameter", menuName = "ScriptableObjects/PlayerMagicParameter", order = 2)]
     public class PlayerMagicParameter:ScriptableObject
     {
-        [SerializeField] private MagicData[] data;
+        [SerializeField] private List<MagicData> data;
         
         public Dictionary<MagicType, int> GetAllChargeValue()
         {
             return data.ToDictionary(param => param.type, param => param.chargeValue);
+        }
+
+        public MagicData Find(MagicType type)
+        {
+            var magic = data.Find(x => x.type == type);
+            if (magic == null)
+            {
+                throw new Exception($"magic data is nothing: {type}");
+            }
+
+            if (magic.prefab == null || 
+                string.IsNullOrEmpty(magic.name) || 
+                magic.chargeValue <= 0 || 
+                magic.damage <= 0)
+            {
+                throw new Exception($"magic data is invalid: {type}");
+            }
+
+            return magic;
         }
 
         public int FindDamage(MagicType findType)

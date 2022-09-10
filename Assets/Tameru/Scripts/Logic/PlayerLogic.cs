@@ -47,10 +47,15 @@ namespace Tameru.Logic
         //MEMO: キーの入力量によるパラメータ変化
         private void UpdateMoveSpeedParameters()
         {
-            Vector2 inputVec = new Vector2(InputKeyData.HorizontalMoveValue, InputKeyData.VerticalMoveValue);
+            var x = InputKeyData.HorizontalMoveValue;
+            var y = InputKeyData.VerticalMoveValue;
+            Vector2 inputVec = new Vector2(x, y);
             Vector2 normalizedVec = inputVec.normalized;
             _playerMoveEntity.SetMoveVec(normalizedVec);
             _playerMoveEntity.SetPlayerPos(_playerView.transform.position);
+
+            var direction = (x != 0 || y != 0) ? normalizedVec : Vector2.down;
+            _playerMoveEntity.SetDirection(direction);
 
             var newMoveAnimationSpeed = inputVec / Enum.GetValues(typeof(MoveMode)).Length *
                                         (int)_playerMoveEntity.moveMode;

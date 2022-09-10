@@ -45,7 +45,7 @@ namespace Tameru.Installer
             
             var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
             var playerLogic = new PlayerLogic(playerMoveEntity,playerHealthEntity,stateEntity,playerView,playerParameter);
-            var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMagicView,playerMagicParameter);
+            var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMoveEntity, playerMagicView,playerMagicParameter);
             var enemyAttackLogic = new EnemyAttackLogic(attackingEnemyEntity, playerHealthEntity, playerMoveEntity,
                 playerView, enemyParameter, enemyCommonParameter, playerParameter);
             var enemyLogic = new EnemyLogic(playerMoveEntity, enemyParameter, playerParameter);

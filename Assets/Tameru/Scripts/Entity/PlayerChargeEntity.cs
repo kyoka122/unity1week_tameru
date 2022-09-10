@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Tameru.Application;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 namespace Tameru.Entity
@@ -11,8 +7,12 @@ namespace Tameru.Entity
     public enum MagicType
     {
         None,
-        Weak,
-        Strong,
+        SmallBall,
+        MediumBall,
+        LargeBall,
+        SmallBullet,
+        MediumBullet,
+        LargeBullet,
     }
     public class PlayerChargeEntity
     {
