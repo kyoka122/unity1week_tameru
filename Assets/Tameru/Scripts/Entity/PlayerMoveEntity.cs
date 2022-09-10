@@ -10,19 +10,25 @@ namespace Tameru.Entity
         SlowWalk,
         Walk
     }
-    
+
     public class PlayerMoveEntity
     {
         public MoveMode moveMode { get; private set; }
         public Vector2 moveVec { get; private set; }
         public Vector2 pos { get; private set; }
+        public Vector2 direction { get; private set; }
+
+        public PlayerMoveEntity()
+        {
+            direction  = Vector2.down;
+        }
 
         //MEMO: チャージ中かどうかでキャラの移動スピードが切り替わるため、enumを用いて区別する
         public void SetMoveMode(MoveMode newMoveMode)
         {
             moveMode = newMoveMode;
         }
-        
+
         public void SetMoveVec(Vector2 newMoveVec)
         {
             moveVec = newMoveVec;
@@ -32,15 +38,10 @@ namespace Tameru.Entity
         {
             pos = newPos;
         }
-        
-        //MEMO: Animator側で「ゆっくり歩く」と「歩く」を変更してくれているので必要なし
-        /*public void ChangeMoveAnimation(MoveMode moveMode)
+
+        public void SetDirection(Vector2 newDirection)
         {
-            
-        }*/
-        
-
-        
-
+            direction = newDirection;
+        }
     }
 }
