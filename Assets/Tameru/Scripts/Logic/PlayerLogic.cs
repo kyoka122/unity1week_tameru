@@ -13,12 +13,16 @@ namespace Tameru.Logic
         private readonly PlayerView _playerView;
         private readonly PlayerParameter _playerParameter;
 
-        public PlayerLogic(PlayerMoveEntity playerMoveEntity,PlayerView playerView,PlayerParameter playerParameter)
+        public PlayerLogic(PlayerMoveEntity playerMoveEntity,PlayerHealthEntity playerHealthEntity,PlayerView playerView,PlayerParameter playerParameter)
         {
             _playerMoveEntity = playerMoveEntity;
             _playerView = playerView;
             _playerParameter = playerParameter;
+            
             _playerMoveEntity.SetMoveMode(MoveMode.Walk);
+            playerHealthEntity.isAlive.Where(alive => !alive)
+                .Subscribe(_=>Debug.Log("PlayerDefeated"))
+                .AddTo(playerView);
         }
         
 

@@ -30,6 +30,10 @@ namespace Tameru.View
 
         public void AddDamage(int damage,BaseEnemyView enemyView)
         {
+            if (damage==0)
+            {
+                return;
+            }
             //MEMO: Enemyが攻撃を受けたかどうかUnity上では分からないためLogに残す
             Debug.Log($"Enemy Add Damage! damage={damage}",enemyView);
             hp -= damage;

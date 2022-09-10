@@ -22,10 +22,10 @@ namespace Tameru.Installer
         [SerializeField] private EnemyCommonParameter enemyCommonParameter;
         [SerializeField] private EnemySpawnView enemySpawnView;
         [SerializeField] private PhaseParameter phaseParameter;
-        
-        
-        
-        
+        [SerializeField] private PlayerHealthView playerHealthView;
+
+
+
         private void Awake()
         {
             var playerChargeEntity = new PlayerChargeEntity();
@@ -36,13 +36,13 @@ namespace Tameru.Installer
             var enemySpawnEntity = new EnemySpawnEntity();
             var gameTimeKeeperLogic = new GameTimeKeeperLogic(phaseEntity,phaseParameter);
             var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter);
+            var playerHealthLogic = new PlayerHealthLogic(playerHealthView, playerHealthEntity, playerParameter); 
             
             var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
-            var playerLogic = new PlayerLogic(playerMoveEntity,playerView,playerParameter);
+            var playerLogic = new PlayerLogic(playerMoveEntity,playerHealthEntity,playerView,playerParameter);
             var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMagicView,playerMagicParameter);
             var enemyAttackLogic = new EnemyAttackLogic(attackingEnemyEntity, playerHealthEntity, playerMoveEntity,
-                playerView, enemyParameter,
-                enemyCommonParameter, playerParameter);
+                playerView, enemyParameter, enemyCommonParameter, playerParameter);
             var enemyLogic = new EnemyLogic(playerMoveEntity, enemyParameter, playerParameter);
             var enemySpawnLogic = new EnemySpawnLogic(enemySpawnView, cameraView, phaseEntity, enemySpawnEntity,
                 phaseParameter, enemyCommonParameter, enemyParameter, enemyAttackLogic.registerAttackingFlag,

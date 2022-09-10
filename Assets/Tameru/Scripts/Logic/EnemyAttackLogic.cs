@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Tameru.Application;
 using Tameru.Entity;
 using Tameru.Parameter;
@@ -25,7 +24,7 @@ namespace Tameru.Logic
 
         public EnemyAttackLogic(AttackingEnemyEntity attackingEnemyEntity, PlayerHealthEntity playerHealthEntity,
             PlayerMoveEntity playerMoveEntity,
-            PlayerView playerView, EnemyParameter enemyParameter, EnemyCommonParameter enemyCommonParameter,
+            PlayerView playerView,EnemyParameter enemyParameter, EnemyCommonParameter enemyCommonParameter,
             PlayerParameter playerParameter)
         {
             _attackingEnemyEntity = attackingEnemyEntity;
@@ -35,6 +34,8 @@ namespace Tameru.Logic
             _enemyCommonParameter = enemyCommonParameter;
             _enemyParameter = enemyParameter;
             _playerParameter = playerParameter;
+
+            
         }
 
         public void CheckEnemyAttackStatus()
@@ -56,7 +57,7 @@ namespace Tameru.Logic
 
             enemyView.isAttackingPlayer
                 .Where(isAttacking => !isAttacking)
-                .Subscribe(_ => { _attackingEnemyEntity.UnRegisterAttackingEnemy(enemyView); }).AddTo(enemyView);
+                .Subscribe(_ =>  _attackingEnemyEntity.UnRegisterAttackingEnemy(enemyView)).AddTo(enemyView);
         }
 
         private void AddPassedTime(IReadOnlyDictionary<BaseEnemyView, float> attackingTime)
@@ -76,7 +77,7 @@ namespace Tameru.Logic
                 {
                     BaseEnemyView enemyView = attackingTimes.Key;
 
-                    float damage = _enemyParameter.FindAttack(enemyView.type);
+                    int damage = _enemyParameter.FindAttack(enemyView.type);
                     _playerHealthEntity.AddDamage(damage);
                     _playerView.NockBack(-GetVecToPlayer(_playerMoveEntity.pos, enemyView.pos) *
                                          _playerParameter.NockBackForce);
