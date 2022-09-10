@@ -25,6 +25,7 @@ namespace Tameru.Installer
         [SerializeField] private PlayerHealthView playerHealthView;
 
         [SerializeField] private ScoreView scoreView = default;
+        [SerializeField] private TimeView timeView = default;
 
         private void Awake()
         {
@@ -51,6 +52,7 @@ namespace Tameru.Installer
                 enemyHealthLogic.registerHealthObserver,enemyLogic.registerMoveEnemyMover);
 
             var scoreLogic = new ScoreLogic(scoreEntity, scoreView);
+            var timeLogic = new TimeLogic(phaseEntity, timeView);
 
             this.UpdateAsObservable()
                 .Subscribe(_ =>
