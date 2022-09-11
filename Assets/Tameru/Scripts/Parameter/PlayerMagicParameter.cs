@@ -25,14 +25,6 @@ namespace Tameru.Parameter
                 throw new Exception($"magic data is nothing: {type}");
             }
 
-            if (magic.prefab == null || 
-                string.IsNullOrEmpty(magic.name) || 
-                magic.chargeValue <= 0 || 
-                magic.damage <= 0)
-            {
-                throw new Exception($"magic data is invalid: {type}");
-            }
-
             return magic;
         }
 
