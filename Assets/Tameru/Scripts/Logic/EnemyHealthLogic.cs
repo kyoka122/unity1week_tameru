@@ -27,6 +27,7 @@ namespace Tameru.Logic
             enemyView.hitMagic.Subscribe(hitMagic =>
             {
                 AddDamage(enemyView, hitMagic);
+                enemyView.PlayDamagedAnimation();
                 CheckDefeated(enemyView);
             }).AddTo(enemyView);
 
