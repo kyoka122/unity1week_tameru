@@ -57,9 +57,7 @@ namespace Tameru.Logic
             var direction = (x != 0 || y != 0) ? normalizedVec : Vector2.down;
             _playerMoveEntity.SetDirection(direction);
 
-            var newMoveAnimationSpeed = inputVec / Enum.GetValues(typeof(MoveMode)).Length *
-                                        (int)_playerMoveEntity.moveMode;
-            _playerView.AnimateMove(newMoveAnimationSpeed);
+            AnimationParamSetting(inputVec);
 
             var newMoveSpeedRate = GetMoveSpeedRate(_playerMoveEntity.moveMode);
             var newMoveSpeed = normalizedVec * newMoveSpeedRate;
@@ -76,6 +74,17 @@ namespace Tameru.Logic
                 MoveMode.Walk => _playerParameter.WalkSpeed,
                 _ => throw new ArgumentOutOfRangeException(nameof(moveMode), moveMode, null)
             };
+        }
+
+        private void AnimationParamSetting(Vector2 inputVec)
+        {
+            Vector2 newMoveAnimationSpeed = inputVec / EnumHelper.MaxIndex<MoveMode>() *
+                                            (int) _playerMoveEntity.moveMode;
+            if (newMoveAnimationSpeed.magnitude<0.01)
+            {
+                return;
+            }
+            _playerView.AnimateMove(newMoveAnimationSpeed);
         }
     }
 }
