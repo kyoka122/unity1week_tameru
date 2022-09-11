@@ -14,8 +14,8 @@ namespace Tameru.Entity
         {
             _playBgm = new Subject<BgmType>();
             _playSe = new Subject<SeType>();
-            _bgmVolume = new ReactiveProperty<float>(0.5f);
-            _seVolume = new ReactiveProperty<float>(0.5f);
+            _bgmVolume = new ReactiveProperty<float>(0.1f);
+            _seVolume = new ReactiveProperty<float>(0.4f);
         }
 
         public void SetUpPlayBgm(BgmType type)
