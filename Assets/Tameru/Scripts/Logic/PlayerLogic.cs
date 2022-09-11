@@ -13,6 +13,8 @@ namespace Tameru.Logic
         private readonly PlayerView _playerView;
         private readonly PlayerParameter _playerParameter;
 
+        Vector2 directionCache=Vector2.zero;
+        
         public PlayerLogic(PlayerMoveEntity playerMoveEntity, PlayerHealthEntity playerHealthEntity,
             GameStateEntity gameStateEntity, PlayerView playerView, PlayerParameter playerParameter)
         {
@@ -54,8 +56,13 @@ namespace Tameru.Logic
             _playerMoveEntity.SetMoveVec(normalizedVec);
             _playerMoveEntity.SetPlayerPos(_playerView.transform.position);
 
-            var direction = (x != 0 || y != 0) ? normalizedVec : Vector2.down;
-            _playerMoveEntity.SetDirection(direction);
+            //var direction = (x != 0 || y != 0) ? normalizedVec : Vector2.down;
+            if (x != 0 || y != 0)
+            {
+                directionCache= normalizedVec;
+            }
+            
+            _playerMoveEntity.SetDirection(directionCache);
 
             AnimationParamSetting(inputVec);
 
