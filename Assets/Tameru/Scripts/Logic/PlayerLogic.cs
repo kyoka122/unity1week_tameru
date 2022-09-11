@@ -57,7 +57,7 @@ namespace Tameru.Logic
             _playerMoveEntity.SetPlayerPos(_playerView.transform.position);
 
             //var direction = (x != 0 || y != 0) ? normalizedVec : Vector2.down;
-            if (x !< 0.01 || y !< 0.01)
+            if (Mathf.Abs(x) !< 0.01 || Mathf.Abs(y) !< 0.01)
             {
                 directionCache= normalizedVec;
             }
