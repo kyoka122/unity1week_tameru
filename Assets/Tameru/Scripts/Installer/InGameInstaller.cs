@@ -47,7 +47,7 @@ namespace Tameru.Installer
             var stateEntity = new GameStateEntity();
 
             var gameTimeKeeperLogic = new GameTimeKeeperLogic(phaseEntity,phaseParameter);
-            var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter);
+            var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter, scoreEntity);
             var playerHealthLogic = new PlayerHealthLogic(playerHealthView, playerHealthEntity, playerParameter); 
             
             var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);

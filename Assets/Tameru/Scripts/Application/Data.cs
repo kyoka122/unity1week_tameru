@@ -38,5 +38,6 @@ namespace Tameru.Application
         public int hp;
         public int attack;
         public int speed;
+        public int score; // 撃破時に加算されるスコア
     }
 }
