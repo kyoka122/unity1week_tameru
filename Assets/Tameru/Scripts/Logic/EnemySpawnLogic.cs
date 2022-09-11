@@ -85,8 +85,8 @@ namespace Tameru.Logic
 
         private void InitEnemyView(BaseEnemyView enemyView)
         {
-            var hp = _enemyParameter.FindHp(enemyView.type);
-            enemyView.Init(hp);
+            var data = _enemyParameter.Find(enemyView.type);
+            enemyView.Init(data.hp, data.score);
             _registerAttackingFlag.Invoke(enemyView);
             _registerHealthObserver.Invoke(enemyView);
             _registerMoveEnemyMover.Invoke(enemyView);

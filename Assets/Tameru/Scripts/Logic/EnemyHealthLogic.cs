@@ -10,10 +10,12 @@ namespace Tameru.Logic
     public class EnemyHealthLogic
     {
         private readonly PlayerMagicParameter _playerMagicParameter;
+        private readonly ScoreEntity _scoreEntity;
         
-        public EnemyHealthLogic(PlayerMagicParameter playerMagicParameter)
+        public EnemyHealthLogic(PlayerMagicParameter playerMagicParameter, ScoreEntity scoreEntity)
         {
             _playerMagicParameter = playerMagicParameter;
+            _scoreEntity = scoreEntity;
         }
 
         public Action<BaseEnemyView> registerHealthObserver => RegisterHealthObserver;
@@ -38,8 +40,8 @@ namespace Tameru.Logic
             if (enemyView.hp<=0)
             {
                 enemyView.Destroy();
+                _scoreEntity.Add(enemyView.score);
             }
-            
         }
     }
 }

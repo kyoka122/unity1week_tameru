@@ -11,6 +11,7 @@ namespace Tameru.View
         public IReadOnlyReactiveProperty<MagicType> hitMagic=>_hitMagic;
         public abstract EnemyType type { get;  }
         public int hp { get; private set; }
+        public int score { get; private set; }
         public Vector2 pos => gameObject.transform.position;
         
         private ReactiveProperty<bool> _isAttackingPlayer;
@@ -19,12 +20,13 @@ namespace Tameru.View
         private bool _hadInit=false;
         private Rigidbody2D _rigidbody2D;
 
-        public void Init(int maxHp)
+        public void Init(int maxHp, int scoreValue)
         {
             _isAttackingPlayer = new ReactiveProperty<bool>(false);
             _hitMagic = new ReactiveProperty<MagicType>(MagicType.None);
             _rigidbody2D = GetComponent<Rigidbody2D>();
             hp = maxHp;
+            score = scoreValue;
             _hadInit = true;
         }
 
