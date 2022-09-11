@@ -9,16 +9,18 @@ namespace Tameru.Logic
     {
         private readonly SceneEntity _sceneEntity;
         private readonly SoundEntity _soundEntity;
+        private readonly GraphicFlashView _flashView;
         private readonly VolumeView _volumeView;
 
-        public TopLogic(SceneEntity sceneEntity, SoundEntity soundEntity, VolumeView volumeView)
+        public TopLogic(SceneEntity sceneEntity, SoundEntity soundEntity, GraphicFlashView flashView, VolumeView volumeView)
         {
             _sceneEntity = sceneEntity;
             _soundEntity = soundEntity;
             _volumeView = volumeView;
+            _flashView = flashView;
 
-            // TODO: 例外が吐かれてしまうため、BGMが設定されたらコメント解除
-            // _soundEntity.SetUpPlayBgm(BgmType.Top);
+            _soundEntity.SetUpPlayBgm(BgmType.Top);
+            _flashView.Init();
 
             foreach (var button in Object.FindObjectsOfType<BaseButtonView>())
             {

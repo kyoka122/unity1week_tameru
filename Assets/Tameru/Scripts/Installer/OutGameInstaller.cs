@@ -6,6 +6,7 @@ namespace Tameru.Installer
 {
     public sealed class OutGameInstaller : MonoBehaviour
     {
+        [SerializeField] private GraphicFlashView flashView = default;
         [SerializeField] private VolumeView volumeView = default;
 
         private void Start()
@@ -13,9 +14,7 @@ namespace Tameru.Installer
             var sceneEntity = CommonInstaller.Instance.sceneEntity;
             var soundEntity = CommonInstaller.Instance.soundEntity;
 
-            var topLogic = new TopLogic(sceneEntity, soundEntity, volumeView);
-
-            soundEntity.SetUpPlayBgm(BgmType.Top);
+            var topLogic = new TopLogic(sceneEntity, soundEntity, flashView, volumeView);
         }
     }
 }
