@@ -45,6 +45,8 @@ namespace Tameru
     public enum EnemyType
     {
         None,
-        Test
+        Sword,
+        Shield,
+        GreatSword,
     }
 }
