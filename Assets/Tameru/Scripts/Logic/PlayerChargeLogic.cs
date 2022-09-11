@@ -120,8 +120,10 @@ namespace Tameru.Logic
 
             var nextMagicMode = (MagicType) Mathf.Min((int) magic + 1, EnumHelper.MaxIndex<MagicType>());
             _playerChargeView.InitSliderMaxValue(_playerMagicParameter.FindChargeValue(nextMagicMode));
-            
-            _playerMagicView.UpdateUseAbleMagicText(_playerMagicParameter.FindName(_playerChargeEntity.currentMagic.Value));
+
+            var currentMagic = _playerMagicParameter.Find(_playerChargeEntity.currentMagic.Value);
+            _playerMagicView.UpdateUseAbleMagicText(currentMagic.name);
+            _playerMagicView.UpdateMagicIcon(currentMagic.icon);
         }
 
     }

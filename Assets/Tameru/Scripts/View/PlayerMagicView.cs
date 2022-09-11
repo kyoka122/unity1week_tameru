@@ -1,21 +1,22 @@
-﻿using Tameru.Entity;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Tameru.View
 {
-    public class PlayerMagicView:MonoBehaviour
+    public class PlayerMagicView : MonoBehaviour
     {
+        [SerializeField] private Image magicIcon = default;
         [SerializeField] private TextMeshProUGUI useAbleMagicNameText;
-        
+
         public void UpdateUseAbleMagicText(string magicName)
         {
             useAbleMagicNameText.text = magicName;
         }
-        
-        public void UseMagic(MagicType magicType)
+
+        public void UpdateMagicIcon(Sprite icon)
         {
-            Debug.Log($"UseMagic");
+            magicIcon.sprite = icon;
         }
     }
 }

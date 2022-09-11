@@ -25,6 +25,7 @@ namespace Tameru.Application
     {
         public MagicType type;
         public BaseMagicView prefab;
+        public Sprite icon;
         public string name;
         public int chargeValue;
         public int damage;
