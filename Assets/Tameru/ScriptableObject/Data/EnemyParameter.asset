@@ -18,3 +18,4 @@ MonoBehaviour:
     hp: 5
     attack: 5
     speed: 2
+    score: 100
