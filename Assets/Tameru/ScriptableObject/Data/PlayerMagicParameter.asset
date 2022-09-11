@@ -26,25 +26,25 @@ MonoBehaviour:
   - type: 2
     prefab: {fileID: 8624958119606537503, guid: 1ff201575eac54818a12edd099c5c8b2, type: 3}
     name: MagicBall<M>
-    chargeValue: 3
+    chargeValue: 2
     damage: 10
   - type: 3
     prefab: {fileID: 128936414225955788, guid: 3beade1757f5c4476bcebc71984989dc, type: 3}
     name: MagicBall<L>
-    chargeValue: 5
+    chargeValue: 2
     damage: 10
   - type: 4
     prefab: {fileID: 5418395020080826381, guid: 46aadbf41d83f4e14915aa34de834226, type: 3}
     name: MagicBullet<S>
-    chargeValue: 7
+    chargeValue: 2
     damage: 3
   - type: 5
     prefab: {fileID: 7582946179898639198, guid: e32bac71f683c4777addc3286ea23c96, type: 3}
     name: MagicBullet<M>
-    chargeValue: 9
+    chargeValue: 3
     damage: 5
   - type: 6
     prefab: {fileID: 1017813161289423199, guid: f69a703e9571b4429af4b72e1ad6e11f, type: 3}
     name: MagicBullet<L>
-    chargeValue: 11
+    chargeValue: 4
     damage: 15

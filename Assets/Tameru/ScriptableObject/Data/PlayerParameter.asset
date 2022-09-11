@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerParameter
   m_EditorClassIdentifier: 
   maxHp: 10
-  slowWalkSpeed: 0.58
-  walkSpeed: 3.23
+  slowWalkSpeed: 2
+  walkSpeed: 3
   territory: 0.1
   nockBackForce: 297.24
