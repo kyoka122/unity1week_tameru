@@ -7,6 +7,8 @@ namespace Tameru.View
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class BaseEnemyView:MonoBehaviour
     {
+        [SerializeField] private ExplosionView explosionView = default;
+
         public IReadOnlyReactiveProperty<bool> isAttackingPlayer => _isAttackingPlayer;
         public IReadOnlyReactiveProperty<MagicType> hitMagic=>_hitMagic;
         public abstract EnemyType type { get;  }
@@ -44,6 +46,7 @@ namespace Tameru.View
         public void Destroy()
         {
             Destroy(gameObject);
+            Instantiate(explosionView, transform.position, Quaternion.identity);
         }
 
         public void MoveEnemyMover(Vector2 newVelocity)
