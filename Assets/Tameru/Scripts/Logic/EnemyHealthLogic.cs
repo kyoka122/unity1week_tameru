@@ -11,11 +11,13 @@ namespace Tameru.Logic
     {
         private readonly PlayerMagicParameter _playerMagicParameter;
         private readonly ScoreEntity _scoreEntity;
+        private readonly ISoundEntity _soundEntity;
         
-        public EnemyHealthLogic(PlayerMagicParameter playerMagicParameter, ScoreEntity scoreEntity)
+        public EnemyHealthLogic(PlayerMagicParameter playerMagicParameter, ScoreEntity scoreEntity, ISoundEntity soundEntity)
         {
             _playerMagicParameter = playerMagicParameter;
             _scoreEntity = scoreEntity;
+            _soundEntity = soundEntity;
         }
 
         public Action<BaseEnemyView> registerHealthObserver => RegisterHealthObserver;
@@ -33,6 +35,7 @@ namespace Tameru.Logic
         private void AddDamage(BaseEnemyView enemyView,MagicType hitMagic)
         {
             enemyView.AddDamage(_playerMagicParameter.FindDamage(hitMagic),enemyView);
+            _soundEntity.SetUpPlaySe(SeType.HitMagic);
         }
 
         private void CheckDefeated(BaseEnemyView enemyView)

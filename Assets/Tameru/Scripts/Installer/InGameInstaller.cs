@@ -46,15 +46,17 @@ namespace Tameru.Installer
             var scoreEntity = new ScoreEntity();
             var stateEntity = new GameStateEntity();
 
+            var soundEntity = CommonInstaller.Instance.soundEntity;
+
             var gameTimeKeeperLogic = new GameTimeKeeperLogic(phaseEntity,phaseParameter);
-            var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter, scoreEntity);
+            var enemyHealthLogic = new EnemyHealthLogic(playerMagicParameter, scoreEntity, soundEntity);
             var playerHealthLogic = new PlayerHealthLogic(playerHealthView, playerHealthEntity, playerParameter); 
             
-            var chargeLogic = new PlayerChargeLogic(playerChargeEntity, playerChargeView,playerMagicView,playerMagicParameter);
+            var chargeLogic = new PlayerChargeLogic(playerChargeEntity, soundEntity, playerChargeView,playerMagicView,playerMagicParameter);
             var playerLogic = new PlayerLogic(playerMoveEntity,playerHealthEntity,stateEntity,playerView,playerParameter);
-            var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMoveEntity, playerMagicView,playerMagicParameter);
+            var playerUseMagicLogic = new PlayerUseMagicLogic(playerChargeEntity, playerMoveEntity, soundEntity, playerMagicView,playerMagicParameter);
             var enemyAttackLogic = new EnemyAttackLogic(attackingEnemyEntity, playerHealthEntity, playerMoveEntity,
-                playerView, enemyParameter, enemyCommonParameter, playerParameter);
+                soundEntity,playerView, enemyParameter, enemyCommonParameter, playerParameter);
             var enemyLogic = new EnemyLogic(playerMoveEntity, enemyParameter, playerParameter);
             var enemySpawnLogic = new EnemySpawnLogic(enemySpawnView, cameraView, phaseEntity, enemySpawnEntity,
                 stateEntity,
@@ -65,6 +67,7 @@ namespace Tameru.Installer
             var timeLogic = new TimeLogic(phaseEntity, timeView);
             var stateLogic = new GameStateLogic(stateEntity, scoreEntity, stateView);
 
+            soundEntity.SetUpPlayBgm(BgmType.Main);
             this.Delay(UiConfig.READY_TIME, () => stateEntity.Set(GameState.Main));
             this.UpdateAsObservable()
                 .Where(_ => stateEntity.IsState(GameState.Main))
