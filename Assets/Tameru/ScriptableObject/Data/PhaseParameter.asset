@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phaseData:
   - phaseTime: 60
-    enemyInstanceInterval: 4
+    enemyInstanceInterval: 2.5
     instanceData:
     - type: 1
       instanceRate: 80

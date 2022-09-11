@@ -16,18 +16,18 @@ MonoBehaviour:
   - type: 1
     prefab: {fileID: 6193627135076411678, guid: 8207818f4c1ff43aeadae803c22d66a4, type: 3}
     hp: 5
-    attack: 5
+    attack: 2
     speed: 1
     score: 100
   - type: 2
     prefab: {fileID: 306446365660103199, guid: 84dec74fa93174b7f927b4e7edbd543a, type: 3}
     hp: 10
-    attack: 5
+    attack: 1
     speed: 1
     score: 200
   - type: 3
     prefab: {fileID: 1580275331244979747, guid: 93a01337b896d42e2821942d588ead9f, type: 3}
     hp: 15
-    attack: 2
+    attack: 3
     speed: 2
     score: 300

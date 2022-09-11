@@ -91,6 +91,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Variant - GreatSword
       objectReference: {fileID: 0}
+    - target: {fileID: 4809438515029971355, guid: 3644c67085bca4489b18efeccfdb7bb1, type: 3}
+      propertyPath: m_Size.y
+      value: 1.054571
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809438515029971355, guid: 3644c67085bca4489b18efeccfdb7bb1, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.29551357
+      objectReference: {fileID: 0}
     - target: {fileID: 5773698582821528211, guid: 3644c67085bca4489b18efeccfdb7bb1, type: 3}
       propertyPath: m_Controller
       value: 

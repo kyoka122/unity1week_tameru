@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5661,7 +5661,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 85202338}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.028795391
+  m_Size: 0.028795393
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6946,7 +6946,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1593444376}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7733,7 +7733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5807818657139493750, guid: 16ab89bd0ea9d468d8315c7fdab013e0, type: 3}
       propertyPath: m_text
-      value: ver 1.0
+      value: ver 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 5807818657139493750, guid: 16ab89bd0ea9d468d8315c7fdab013e0, type: 3}
       propertyPath: m_fontSize
