@@ -21,12 +21,15 @@ namespace Tameru.View
 
         private bool _hadInit=false;
         private Rigidbody2D _rigidbody2D;
+        private Animator _animator;
+        private const string DamageString = "Damage";
 
         public void Init(int maxHp, int scoreValue)
         {
             _isAttackingPlayer = new ReactiveProperty<bool>(false);
             _hitMagic = new ReactiveProperty<MagicType>(MagicType.None);
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            _animator = GetComponent<Animator>();
             hp = maxHp;
             score = scoreValue;
             _hadInit = true;
@@ -54,6 +57,11 @@ namespace Tameru.View
             _rigidbody2D.velocity = newVelocity;
         }
         
+        public void PlayDamagedAnimation()
+        {
+            _animator.SetTrigger(DamageString);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!_hadInit)

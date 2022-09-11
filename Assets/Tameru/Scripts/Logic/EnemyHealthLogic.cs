@@ -35,6 +35,7 @@ namespace Tameru.Logic
         private void AddDamage(BaseEnemyView enemyView,MagicType hitMagic)
         {
             enemyView.AddDamage(_playerMagicParameter.FindDamage(hitMagic),enemyView);
+            enemyView.PlayDamagedAnimation();
             _soundEntity.SetUpPlaySe(SeType.HitMagic);
         }
 
