@@ -14,6 +14,8 @@ namespace Tameru.Installer
             var soundEntity = CommonInstaller.Instance.soundEntity;
 
             var topLogic = new TopLogic(sceneEntity, soundEntity, volumeView);
+
+            soundEntity.SetUpPlayBgm(BgmType.Top);
         }
     }
 }

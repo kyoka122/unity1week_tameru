@@ -14,6 +14,15 @@ namespace Tameru
         Decision,
         Cancel,
         CursorOver,
+        Damage,
+        HitMagic,
+        Charged, // チャージが一段階変化した時
+        UseSmallBall,
+        UseMediumBall,
+        UseLargeBall,
+        UseSmallBullet,
+        UseMediumBullet,
+        UseLargeBullet,
     }
 
     public enum BgmType

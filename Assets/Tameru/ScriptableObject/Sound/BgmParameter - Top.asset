@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BgmParameter - Top
   m_EditorClassIdentifier: 
   bgmType: 1
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 9c76f833da8cdc148b3371a04bcd0fd2, type: 3}

@@ -11,13 +11,17 @@ namespace Tameru.Logic
     public class PlayerChargeLogic
     {
         private readonly PlayerChargeEntity _playerChargeEntity;
+        private readonly ISoundEntity _soundEntity;
         private readonly PlayerChargeView _playerChargeView;
         private readonly PlayerMagicView _playerMagicView;
         private readonly PlayerMagicParameter _playerMagicParameter;
 
-        public PlayerChargeLogic(PlayerChargeEntity playerChargeEntity, PlayerChargeView playerChargeView,PlayerMagicView playerMagicView,PlayerMagicParameter playerMagicParameter)
+        public PlayerChargeLogic(PlayerChargeEntity playerChargeEntity, ISoundEntity soundEntity,
+            PlayerChargeView playerChargeView, PlayerMagicView playerMagicView,
+            PlayerMagicParameter playerMagicParameter)
         {
             _playerChargeEntity = playerChargeEntity;
+            _soundEntity = soundEntity;
             _playerChargeView = playerChargeView;
             _playerMagicView = playerMagicView;
             _playerMagicParameter = playerMagicParameter;
@@ -112,6 +116,8 @@ namespace Tameru.Logic
         
         private void UpdateViewByMagicChange(MagicType magic)
         {
+            _soundEntity.SetUpPlaySe(SeType.Charged);
+
             var nextMagicMode = (MagicType) Mathf.Min((int) magic + 1, EnumHelper.MaxIndex<MagicType>());
             _playerChargeView.InitSliderMaxValue(_playerMagicParameter.FindChargeValue(nextMagicMode));
             

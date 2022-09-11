@@ -16,6 +16,7 @@ namespace Tameru.Logic
         private readonly AttackingEnemyEntity _attackingEnemyEntity;
         private readonly PlayerHealthEntity _playerHealthEntity;
         private readonly PlayerMoveEntity _playerMoveEntity;
+        private readonly ISoundEntity _soundEntity;
         private readonly PlayerView _playerView;
 
         private readonly EnemyCommonParameter _enemyCommonParameter;
@@ -23,13 +24,14 @@ namespace Tameru.Logic
         private readonly PlayerParameter _playerParameter;
 
         public EnemyAttackLogic(AttackingEnemyEntity attackingEnemyEntity, PlayerHealthEntity playerHealthEntity,
-            PlayerMoveEntity playerMoveEntity,
+            PlayerMoveEntity playerMoveEntity, ISoundEntity soundEntity,
             PlayerView playerView,EnemyParameter enemyParameter, EnemyCommonParameter enemyCommonParameter,
             PlayerParameter playerParameter)
         {
             _attackingEnemyEntity = attackingEnemyEntity;
             _playerHealthEntity = playerHealthEntity;
             _playerMoveEntity = playerMoveEntity;
+            _soundEntity = soundEntity;
             _playerView = playerView;
             _enemyCommonParameter = enemyCommonParameter;
             _enemyParameter = enemyParameter;
@@ -82,6 +84,8 @@ namespace Tameru.Logic
                     _playerView.NockBack(-GetVecToPlayer(_playerMoveEntity.pos, enemyView.pos) *
                                          _playerParameter.NockBackForce);
                     _attackingEnemyEntity.ResetTime(enemyView);
+
+                    _soundEntity.SetUpPlaySe(SeType.Damage);
                 }
             }
         }
