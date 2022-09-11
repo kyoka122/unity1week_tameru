@@ -28,8 +28,10 @@ namespace Tameru.Logic
                 {
                     switch (x)
                     {
-                        case GameState.Main:
+                        case GameState.Ready:
                             _stateView.ShowReadyAsync(_tokenSource.Token).Forget();
+                            break;
+                        case GameState.Main:
                             break;
                         case GameState.Over:
                         case GameState.Clear:

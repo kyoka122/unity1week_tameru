@@ -31,8 +31,8 @@ namespace Tameru.Installer
 
         private void Start()
         {
-            // Fade + 開始演出完了後に初期化
-            this.Delay(UiConfig.FADE_TIME + UiConfig.READY_TIME, Init);
+            // Fade完了後に初期化
+            this.Delay(UiConfig.FADE_TIME, Init);
         }
 
         private void Init()
@@ -65,6 +65,7 @@ namespace Tameru.Installer
             var timeLogic = new TimeLogic(phaseEntity, timeView);
             var stateLogic = new GameStateLogic(stateEntity, scoreEntity, stateView);
 
+            this.Delay(UiConfig.READY_TIME, () => stateEntity.Set(GameState.Main));
             this.UpdateAsObservable()
                 .Where(_ => stateEntity.IsState(GameState.Main))
                 .Subscribe(_ =>

@@ -9,7 +9,7 @@ namespace Tameru.Entity
 
         public GameStateEntity()
         {
-            _gameState = new ReactiveProperty<GameState>(GameState.Main);
+            _gameState = new ReactiveProperty<GameState>(GameState.Ready);
         }
 
         public IObservable<GameState> gameState => _gameState.Where(x => x != GameState.None);

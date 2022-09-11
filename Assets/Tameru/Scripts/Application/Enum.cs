@@ -27,6 +27,7 @@ namespace Tameru
     public enum GameState
     {
         None,
+        Ready,
         Main,
         Over,
         Clear,
