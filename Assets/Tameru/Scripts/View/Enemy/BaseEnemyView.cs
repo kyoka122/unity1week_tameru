@@ -75,6 +75,7 @@ namespace Tameru.View
             if (other.gameObject.TryGetComponent(out BaseMagicView magicView))
             {
                 _hitMagic.Value = magicView.magicType;
+                _hitMagic.Value = MagicType.None;
             }
         }
 

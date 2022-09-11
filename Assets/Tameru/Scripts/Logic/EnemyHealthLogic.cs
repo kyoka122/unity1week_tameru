@@ -24,18 +24,18 @@ namespace Tameru.Logic
 
         private void RegisterHealthObserver(BaseEnemyView enemyView)
         {
-            enemyView.hitMagic.Subscribe(hitMagic =>
-            {
-                AddDamage(enemyView, hitMagic);
-                enemyView.PlayDamagedAnimation();
-                CheckDefeated(enemyView);
-            }).AddTo(enemyView);
-
+            enemyView.hitMagic.Where(magic => magic !=MagicType.None)
+                .Subscribe(hitMagic =>
+                {
+                    AddDamage(enemyView, hitMagic);
+                    CheckDefeated(enemyView);
+                }).AddTo(enemyView);
         }
         
         private void AddDamage(BaseEnemyView enemyView,MagicType hitMagic)
         {
             enemyView.AddDamage(_playerMagicParameter.FindDamage(hitMagic),enemyView);
+            enemyView.PlayDamagedAnimation();
             _soundEntity.SetUpPlaySe(SeType.HitMagic);
         }
 

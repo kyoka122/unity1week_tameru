@@ -6,6 +6,7 @@ namespace Tameru.View
 {
     public abstract class BaseMagicBallView : BaseMagicView
     {
+        [SerializeField] private float lifeTime = 30;
         public override void Shot(Vector2 direction)
         {
             base.Shot(direction);
@@ -15,7 +16,7 @@ namespace Tameru.View
                 {
                     if (x.TryGetComponent<BaseEnemyView>(out var enemy))
                     {
-                        Destroy(gameObject);
+                        Destroy(gameObject,lifeTime);
                     }
                 })
                 .AddTo(this);
