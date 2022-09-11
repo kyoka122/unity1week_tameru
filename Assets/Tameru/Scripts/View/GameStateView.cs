@@ -13,9 +13,6 @@ namespace Tameru.View
 
         public async UniTask ShowReadyAsync(CancellationToken token)
         {
-            // Fade終了待ち
-            await UniTask.Delay(TimeSpan.FromSeconds(UiConfig.FADE_TIME), cancellationToken: token);
-
             var time = UiConfig.READY_TIME / 3.0f;
             await stateText
                 .DOText("Ready...?", time)
