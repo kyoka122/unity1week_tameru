@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: PhaseParameter
   m_EditorClassIdentifier: 
   phaseData:
-  - phaseTime: 20
-    enemyInstanceInterval: 5
+  - phaseTime: 30
+    enemyInstanceInterval: 3
     instanceData:
     - type: 1
       instanceRate: 50
-    - type: 1
+    - type: 2
       instanceRate: 50
-  - phaseTime: 20
-    enemyInstanceInterval: 5
+  - phaseTime: 30
+    enemyInstanceInterval: 1
     instanceData:
     - type: 1
       instanceRate: 50
-    - type: 1
+    - type: 2
       instanceRate: 50
+    - type: 1
+      instanceRate: 20
