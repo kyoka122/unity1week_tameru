@@ -1,4 +1,5 @@
-﻿using Tameru.Application;
+﻿using EFUK;
+using Tameru.Application;
 using Tameru.Entity;
 using Tameru.Logic;
 using Tameru.Parameter;
@@ -28,7 +29,13 @@ namespace Tameru.Installer
         [SerializeField] private TimeView timeView = default;
         [SerializeField] private GameStateView stateView = default;
 
-        private void Awake()
+        private void Start()
+        {
+            // Fade + 開始演出完了後に初期化
+            this.Delay(UiConfig.FADE_TIME + UiConfig.READY_TIME, Init);
+        }
+
+        private void Init()
         {
             var playerChargeEntity = new PlayerChargeEntity();
             var playerMoveEntity = new PlayerMoveEntity();
