@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Tameru.Entity;
@@ -23,8 +24,21 @@ namespace Tameru.Logic
                 .AddTo(_stateView);
 
             _stateEntity.gameState
-                .Where(x => x is GameState.Clear or GameState.Over)
-                .Subscribe(x => ShowResultAsync(x, _tokenSource.Token).Forget())
+                .Subscribe(x =>
+                {
+                    switch (x)
+                    {
+                        case GameState.Main:
+                            _stateView.ShowReadyAsync(_tokenSource.Token).Forget();
+                            break;
+                        case GameState.Over:
+                        case GameState.Clear:
+                            ShowResultAsync(x, _tokenSource.Token).Forget();
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(x), x, null);
+                    }
+                })
                 .AddTo(stateView);
         }
 

@@ -1,36 +1,39 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using MPUIKIT;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Tameru.View
 {
     public sealed class TransitionView : MonoBehaviour
     {
-        [SerializeField] private Image mask = default;
+        [SerializeField] private MPImage mask = default;
+        private float minStrokeWidth = 0.01f;
+        private float maxStrokeWidth = 275.0f;
+        private static readonly int _strokeWidth = Shader.PropertyToID("_StrokeWidth");
 
-        private readonly float fadeTime = 0.5f;
-
-        // TODO: 仮のフェード実装のため修正する
         public async UniTask ShowAsync(CancellationToken token)
         {
             Activate(true);
 
-            await mask
-                .DOFade(1.0f, fadeTime)
-                .SetEase(Ease.Linear)
-                .SetLink(gameObject)
+            await DOTween.To(
+                () => mask.material.GetFloat(_strokeWidth),
+                x => mask.material.SetFloat(_strokeWidth, x),
+                maxStrokeWidth,
+                UiConfig.FADE_TIME)
+                .SetEase(Ease.OutQuart)
                 .WithCancellation(token);
         }
 
-        // TODO: 仮のフェード実装のため修正する
         public async UniTask HideAsync(CancellationToken token)
         {
-            await mask
-                .DOFade(0.0f, fadeTime)
-                .SetEase(Ease.Linear)
-                .SetLink(gameObject)
+            await DOTween.To(
+                    () => mask.material.GetFloat(_strokeWidth),
+                    x => mask.material.SetFloat(_strokeWidth, x),
+                    minStrokeWidth,
+                    UiConfig.FADE_TIME)
+                .SetEase(Ease.InQuart)
                 .WithCancellation(token);
 
             Activate(false);
